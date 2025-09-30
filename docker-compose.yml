@@ -1,0 +1,40 @@
+# ABDEVOPS
+
+services:
+  # Frontend Service
+  frontend:
+    container_name: frontend-container
+    build: ./frontend
+    restart: always
+    ports:
+      - "8080:80"
+
+  # Backend Service
+  backend:
+    container_name: backend-container
+    build: ./backend
+    restart: always
+    environment:
+      - ConnectionString=server=database-container;port=5432;database=post_db;userid=${POSTGRES_USER};password=${POSTGRES_PW}
+    ports:
+      - "3000:8080"
+    depends_on:
+      db:
+        condition: service_healthy
+
+  # Database Service
+  db:
+    container_name: database-container
+    image: postgres:latest
+    restart: always
+    environment:
+      - POSTGRES_DB=post_db
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PW}
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
