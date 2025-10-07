@@ -1,13 +1,16 @@
+using api.Repositories;
+using api.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace api.Controllers;
 
 public class PersonsController : IPersonsController
 {
-
-    public PersonsController()
+    private readonly IPersonsService  _personsService;
+    
+    public PersonsController(IPersonsService personsService)
     {
-        
+        _personsService = personsService;
     }
     
     

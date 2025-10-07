@@ -9,7 +9,7 @@ public class DataContext : DbContext
 {
     override protected void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        Env.TraversePath().Load(".env");
+        Env.TraversePath().Load();
 
         var connectionString = Environment.GetEnvironmentVariable("ConnectionString"); 
         
