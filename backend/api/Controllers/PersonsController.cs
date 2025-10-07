@@ -4,7 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace api.Controllers;
 
-public class PersonsController : IPersonsController
+[ApiController]
+[Route("api/[controller]")]
+public class PersonsController : ControllerBase, IPersonsController
 {
     private readonly IPersonsService _personsService;
 
