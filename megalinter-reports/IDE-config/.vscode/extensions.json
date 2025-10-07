@@ -1,0 +1,9 @@
+{
+    "recommendations": [
+        "esbenp.prettier-vscode",
+        "josefpihrt-vscode.roslynator",
+        "AquaSecurityOfficial.trivy-vulnerability-scanner",
+        "csharpier.csharpier-vscode",
+        "exiasr.hadolint"
+    ]
+}
