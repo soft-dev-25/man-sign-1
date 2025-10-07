@@ -6,8 +6,8 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddSingleton<IPersonsService, PersonsService>();
-builder.Services.AddSingleton<IPersonsRepository, PersonsRepository>();
+builder.Services.AddScoped<IPersonsService, PersonsService>();
+builder.Services.AddScoped<IPersonsRepository, PersonsRepository>();
 builder.Services.AddDbContext<DataContext>();
 
 builder.Services.AddControllers();

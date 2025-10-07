@@ -11,11 +11,14 @@ public class DataContext : DbContext
     {
         Env.TraversePath().Load();
 
-        var connectionString = Environment.GetEnvironmentVariable("ConnectionString"); 
+        var connectionString = Environment.GetEnvironmentVariable("ConnectionString");
+        
         
         optionsBuilder.UseNpgsql(connectionString)
             .LogTo(Console.WriteLine, LogLevel.Information)
             .EnableDetailedErrors();
+
+        Console.WriteLine("connectionString" + connectionString);
     }
     
     public DbSet<Postal> Postals { get; set; }

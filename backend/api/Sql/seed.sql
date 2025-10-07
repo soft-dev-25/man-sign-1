@@ -1,4 +1,4 @@
-INSERT INTO 'postal' ('postal_code', 'town_name') VALUES
+INSERT INTO postal ("postal_code", "town_name") VALUES
 ('1301', 'København K'),
 ('2000', 'Frederiksberg'),
 ('2100', 'København Ø'),

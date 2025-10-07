@@ -21,6 +21,12 @@ namespace api.Migrations
                 {
                     table.PrimaryKey("PK_postal", x => x.postal_code);
                 });
+
+            // seed data
+            var pathFile = Path.Combine("Sql/seed.sql");
+            migrationBuilder.Sql(File.ReadAllText(pathFile));
+
+
         }
 
         /// <inheritdoc />
