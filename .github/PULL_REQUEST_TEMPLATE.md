@@ -22,3 +22,9 @@ _Add your description here._
 - [ ] Yes, added
 - [ ] Yes, updated
 - [ ] No, and this is why: _please replace this line with details on why tests have not been included_
+
+## How to test?
+
+1. Clone repo
+2. Run ....
+3. ....

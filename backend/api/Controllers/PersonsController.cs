@@ -1,0 +1,71 @@
+using api.Repositories;
+using api.Services;
+using Microsoft.AspNetCore.Mvc;
+
+namespace api.Controllers;
+
+[ApiController]
+[Route("api/[controller]")]
+public class PersonsController : ControllerBase, IPersonsController
+{
+    private readonly IPersonsService _personsService;
+
+    public PersonsController(IPersonsService personsService)
+    {
+        _personsService = personsService;
+    }
+
+    [HttpGet("cpr")]
+    public Task<IActionResult> GetCpr()
+    {
+        throw new NotImplementedException();
+    }
+
+    [HttpGet("name-gender")]
+    public Task<IActionResult> GetNameAndGender()
+    {
+        throw new NotImplementedException();
+    }
+
+    [HttpGet("name-gender-dob")]
+    public Task<IActionResult> GetNameAndGenderAndDoB()
+    {
+        throw new NotImplementedException();
+    }
+
+    [HttpGet("cpr-name-gender")]
+    public Task<IActionResult> GetCprAndNameAndGender()
+    {
+        throw new NotImplementedException();
+    }
+
+    [HttpGet("cpr-name-gender-dob")]
+    public Task<IActionResult> GetCprAndNameAndGenderAndDoB()
+    {
+        throw new NotImplementedException();
+    }
+
+    [HttpGet("address")]
+    public Task<IActionResult> GetAddress()
+    {
+        throw new NotImplementedException();
+    }
+
+    [HttpGet("phone")]
+    public Task<IActionResult> GetPhone()
+    {
+        throw new NotImplementedException();
+    }
+
+    [HttpGet("person")]
+    public Task<IActionResult> GetSinglePerson()
+    {
+        throw new NotImplementedException();
+    }
+
+    [HttpGet("persons")]
+    public Task<IActionResult> GetPersons(int? count)
+    {
+        throw new NotImplementedException();
+    }
+}
