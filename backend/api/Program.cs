@@ -1,3 +1,4 @@
+using System.Text.Json;
 using api.DBContext;
 using api.Repositories;
 using api.Services;
@@ -9,6 +10,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddScoped<IPersonsService, PersonsService>();
 builder.Services.AddScoped<IPersonsRepository, PersonsRepository>();
 builder.Services.AddDbContext<DataContext>();
+builder.Services.AddSingleton(new JsonSerializerOptions
+{
+    PropertyNameCaseInsensitive = true
+});
 
 builder.Services.AddControllers();
 
