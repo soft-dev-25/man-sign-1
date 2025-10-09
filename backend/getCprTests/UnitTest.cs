@@ -12,11 +12,10 @@ namespace getCprTests;
 public class UnitTest
 {
     [Fact]
-    public async Task BirthDate_And_Cpr_Should_Be_Equal(
-    )
+    public async Task BirthDate_And_Cpr_Should_Be_Equal()
     {
         // Arrange
-        var person = new Person() {Gender = "male"};
+        var person = new Person() { Gender = "male" };
 
         // Act
         person.CreateCpr();
@@ -30,19 +29,19 @@ public class UnitTest
         var day = cprDate.Substring(0, 2);
         var month = cprDate.Substring(2, 2);
         var year = cprDate.Substring(4, 2); // Assuming 20xx for simplicity
-        
+
         // DateOfBirth (YYYY-MM-DD)
         var dobParts = person.BirthDate.Split('-');
         var dobYear = dobParts[0];
         var dobMonth = dobParts[1];
         var dobDay = dobParts[2];
-        
+
         // Compare
         Assert.Equal(day, dobDay);
         Assert.Equal(month, dobMonth);
         Assert.Equal(year, dobYear.Substring(2));
     }
-    
+
     [InlineData("female", new[] { 2, 4, 6, 8, 0 })]
     [InlineData("male", new[] { 1, 3, 5, 7, 9 })]
     [Theory]
