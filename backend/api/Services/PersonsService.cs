@@ -35,7 +35,7 @@ public class PersonsService : IPersonsService
         {
             FirstName = person.FirstName,
             LastName = person.LastName,
-            Gender = person.Gender,
+            Gender = person.Gender
         };
     }
 
@@ -59,9 +59,11 @@ public class PersonsService : IPersonsService
         throw new NotImplementedException();
     }
 
-    public Task<PersonDTO> GetPhone()
+    public async Task<PersonDTO> GetPhone()
     {
-        throw new NotImplementedException();
+        var person = await _jsonService.GetRandomPersonFromJson();
+        person.CreatePhoneNumber();
+        return new PersonDTO { PhoneNumber = person.PhoneNumber };
     }
 
     public Task<List<PersonDTO>> GetPersons(int? count = 1)
