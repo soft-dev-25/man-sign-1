@@ -17,6 +17,27 @@
 }
 ```
 
+<tr>
+<td><code>/address</code></td>
+<td>Receive a random address</td>
+<td>
+
+```json
+{
+  "street": "gIKoXUåJeVT",
+  "number": "249",
+  "door": "mf",
+  "postalCode": "9400",
+  "townName": "Nørresundby",
+  "floorDisplay": "4"
+}
+```
+
+</td>
+</tr>
+
+</td>
+</tr>
 </td>
 </tr>
 </table>

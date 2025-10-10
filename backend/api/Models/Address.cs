@@ -9,14 +9,16 @@ namespace api.Models
         public string? Street { get; init; }
         public string? Number { get; init; }
         public int? Floor { private get; init; }
+        public string FloorDisplay =>
+            Floor.HasValue ? Floor.Value.ToString()
+            : FloorType == FloorType.St ? nameof(FloorType.St)
+            : string.Empty;
+
         public string? Door { get; init; }
         public string? PostalCode { get; set; }
         public string? TownName { get; set; }
 
-        public string FloorDisplay =>
-            Floor.HasValue? Floor.Value.ToString()
-            : FloorType == FloorType.St ? nameof(FloorType.St)
-            : string.Empty;
+      
 
         public override string ToString()
         {
