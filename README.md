@@ -2,7 +2,7 @@
 
 This is the repository for the mandatory assignment #1 in the Test Class.
 
-Make sure to run ´npm install´ after cloning this repository to use Husky's pre-commit hook.
+Make sure to run `npm install` after cloning this repository to use Husky's pre-commit hook.
 
 ## Endpoints
 
