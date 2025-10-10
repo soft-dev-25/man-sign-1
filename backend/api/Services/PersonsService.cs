@@ -49,7 +49,7 @@ public class PersonsService : IPersonsService
             FirstName = person.FirstName,
             LastName = person.LastName,
             Gender = person.Gender,
-            BirthDate = person.BirthDate
+            BirthDate = person.BirthDate,
         };
     }
 
