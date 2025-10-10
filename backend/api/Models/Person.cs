@@ -118,7 +118,7 @@ public class Person
 
         for (var i = 0; i < numbersToAdd; i++)
         {
-            phoneNumber += random.Next(0, 9).ToString();
+            phoneNumber += random.Next(0, 10);
         }
 
         PhoneNumber = phoneNumber;
