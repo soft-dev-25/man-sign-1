@@ -1,5 +1,4 @@
 using api.DBContext;
-using api.ExceptionHandlers;
 using api.Models.DTOs;
 using api.Repositories;
 
@@ -7,10 +6,9 @@ namespace api.Services;
 
 public class PersonsService : IPersonsService
 {
-    private readonly IPersonsRepository _personsRepository;
     private readonly DataContext _context;
     private readonly IJsonService _jsonService;
-    private readonly Random _random = new Random();
+    private readonly IPersonsRepository _personsRepository;
 
     public PersonsService(
         IPersonsRepository personsRepository,
@@ -27,12 +25,18 @@ public class PersonsService : IPersonsService
     {
         var person = await _jsonService.GetRandomPersonFromJson();
         person.CreateCpr();
-        return new PersonDTO() { Cpr = person.Cpr };
+        return new PersonDTO { Cpr = person.Cpr };
     }
 
-    public Task<PersonDTO> GetNameAndGender()
+    public async Task<PersonDTO> GetNameAndGender()
     {
-        throw new NotImplementedException();
+        var person = await _jsonService.GetRandomPersonFromJson();
+        return new PersonDTO
+        {
+            FirstName = person.FirstName,
+            LastName = person.LastName,
+            Gender = person.Gender,
+        };
     }
 
     public Task<PersonDTO> GetNameAndGenderAndDoB()

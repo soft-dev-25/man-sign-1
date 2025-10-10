@@ -1,4 +1,3 @@
-using api.Repositories;
 using api.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,9 +22,11 @@ public class PersonsController : ControllerBase, IPersonsController
     }
 
     [HttpGet("name-gender")]
-    public Task<IActionResult> GetNameAndGender()
+    public async Task<IActionResult> GetNameAndGender()
     {
-        throw new NotImplementedException();
+        var nameGender = await _personsService.GetNameAndGender();
+
+        return Ok(nameGender);
     }
 
     [HttpGet("name-gender-dob")]
