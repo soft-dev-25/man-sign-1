@@ -59,7 +59,7 @@ public class PersonsController : ControllerBase, IPersonsController
                 return NotFound("Address not found");
             }
 
-            return Ok(personDto.Address.ToString());
+            return Ok(personDto.Address);
         }
         catch (Exception ex)
         {
