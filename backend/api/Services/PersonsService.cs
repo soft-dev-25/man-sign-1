@@ -9,7 +9,6 @@ public class PersonsService : IPersonsService
     private readonly DataContext _context;
     private readonly IJsonService _jsonService;
     private readonly IPersonsRepository _personsRepository;
-    private readonly Random _random = new();
 
     public PersonsService(
         IPersonsRepository personsRepository,
