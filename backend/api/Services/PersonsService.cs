@@ -1,5 +1,5 @@
 using api.DBContext;
-using api.ExceptionHandlers;
+using api.Models;
 using api.Models.DTOs;
 using api.Repositories;
 
@@ -10,7 +10,6 @@ public class PersonsService : IPersonsService
     private readonly IPersonsRepository _personsRepository;
     private readonly DataContext _context;
     private readonly IJsonService _jsonService;
-    private readonly Random _random = new Random();
 
     public PersonsService(
         IPersonsRepository personsRepository,
@@ -52,7 +51,11 @@ public class PersonsService : IPersonsService
 
     public Task<PersonDTO> GetAddress()
     {
-        throw new NotImplementedException();
+        var postal = _personsRepository.GetPostal();
+        var fakeAddress = Address.GenerateFakeAddress();
+        fakeAddress.PostalCode = postal.PostalCode;
+        fakeAddress.TownName = postal.TownName;
+        return Task.FromResult(new PersonDTO() { Address = fakeAddress });
     }
 
     public Task<PersonDTO> GetPhone()
