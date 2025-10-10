@@ -56,9 +56,9 @@ public class PersonsController : ControllerBase, IPersonsController
     [HttpGet("phone")]
     public async Task<IActionResult> GetPhone()
     {
-        var phone = await _personsService.GetPhone();
+        var phoneNumber = await _personsService.GetPhone();
 
-        return Ok(phone);
+        return Ok(phoneNumber);
     }
 
     [HttpGet("person")]
