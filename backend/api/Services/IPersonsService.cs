@@ -4,12 +4,12 @@ namespace api.Services;
 
 public interface IPersonsService
 {
-    Task<string> GetCpr();
-    Task<Person> GetNameAndGender();
-    Task<Person> GetNameAndGenderAndDoB();
-    Task<Person> GetCprAndNameAndGender();
-    Task<Person> GetCprAndNameAndGenderAndDoB();
-    Task<Person> GetAddress();
-    Task<Person> GetPhone();
-    Task<List<Person>> GetPersons(int? count);
+    Task<PersonDTO> GetCpr();
+    Task<PersonDTO> GetNameAndGender();
+    Task<PersonDTO> GetNameAndGenderAndDoB();
+    Task<PersonDTO> GetCprAndNameAndGender();
+    Task<PersonDTO> GetCprAndNameAndGenderAndDoB();
+    Task<PersonDTO> GetAddress();
+    Task<PersonDTO> GetPhone();
+    Task<List<PersonDTO>> GetPersons(int? count);
 }

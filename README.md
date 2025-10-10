@@ -1,22 +1,22 @@
 # man-sign-1
 
-### What has been added? (Ali, 30.09.2025)
+## Endpoints
 
-#### Frontend
+<table>
+<tr>
+<td> <strong>Route</strong> </td> <td> <strong>Description</strong> </td> <td> <strong>Response</strong> </td>
+</tr>
+<tr>
+<td> <code>/cpr</code> </td>
+<td> Receive a random 10-digit CPR-number </td>
+<td>
 
-- Cloned from Arturo
-- Added `Dockerfile`, which exposes frontend to port 8080
+```json
+{
+    "CPR": "1002272249"
+}
+```
 
-#### Backend
-
-- Created a solution, `backend.sln`, with two projects `api.cspoj` and `tests.csproj` (XUnit).
-
-#### GitHub Actions
-
-- Created `pull_request.yml`. Runs tests in the backend and tries to build the application
-- Created `mega-linter.yml`. Static linting.
-- Added `docker-compose.yml` in root. Runs frontend, backend with a postgres db container.
-
-#### Other
-
-- Added PR template
+</td>
+</tr>
+</table>

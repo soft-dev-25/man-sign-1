@@ -1,0 +1,29 @@
+{
+  "name": "man-sign-1",
+  "version": "1.0.0",
+  "description": "- Cloned from Arturo - Added `Dockerfile`, which exposes frontend to port 8080",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "dotnet test backend/backend.sln",
+    "format": "dotnet format backend/backend.sln",
+    "prepare": "husky"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/soft-dev-25/man-sign-1.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/soft-dev-25/man-sign-1/issues"
+  },
+  "homepage": "https://github.com/soft-dev-25/man-sign-1#readme",
+  "devDependencies": {
+    "husky": "^9.1.7"
+  }
+}
