@@ -39,7 +39,10 @@ public class Person
         }
         var random = new Random();
 
-        CreateBirthdate();
+        if (BirthDate == null)
+        {
+            CreateBirthdate();
+        }
 
         var year = BirthDate.Value.Year;
         var month = BirthDate.Value.Month;
