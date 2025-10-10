@@ -1,4 +1,3 @@
-using System.Text.Json;
 using api.DBContext;
 using api.ExceptionHandlers;
 using api.Repositories;
@@ -12,10 +11,6 @@ builder.Services.AddScoped<IPersonsService, PersonsService>();
 builder.Services.AddScoped<IPersonsRepository, PersonsRepository>();
 builder.Services.AddScoped<IJsonService, JsonService>();
 builder.Services.AddDbContext<DataContext>();
-builder.Services.AddSingleton(new JsonSerializerOptions
-{
-    PropertyNameCaseInsensitive = true
-});
 
 // Custom ExceptionHandlers
 builder.Services.AddExceptionHandler<BadRequestExceptionHandler>();

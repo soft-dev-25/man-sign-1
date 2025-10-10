@@ -25,6 +25,7 @@ public class PersonsController : ControllerBase, IPersonsController
     public async Task<IActionResult> GetNameAndGender()
     {
         var nameGender = await _personsService.GetNameAndGender();
+
         return Ok(nameGender);
     }
 
