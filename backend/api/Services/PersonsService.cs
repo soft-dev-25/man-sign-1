@@ -32,7 +32,12 @@ public class PersonsService : IPersonsService
     public async Task<PersonDTO> GetNameAndGender()
     {
         var person = await _jsonService.GetRandomPersonFromJson();
-        return new PersonDTO { FirstName = person.FirstName, LastName = person.LastName, Gender = person.Gender };
+        return new PersonDTO
+        {
+            FirstName = person.FirstName,
+            LastName = person.LastName,
+            Gender = person.Gender,
+        };
     }
 
     public Task<PersonDTO> GetNameAndGenderAndDoB()

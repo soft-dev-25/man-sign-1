@@ -16,8 +16,16 @@ public class UnitTests
         var mockRepository = Substitute.For<IPersonsRepository>();
         var mockDataContext = Substitute.For<DataContext>();
         var mockJsonService = Substitute.For<IJsonService>();
-        mockJsonService.GetRandomPersonFromJson()
-            .Returns(new Person { FirstName = "Ali", LastName = "Mohammed", Gender = "Male" });
+        mockJsonService
+            .GetRandomPersonFromJson()
+            .Returns(
+                new Person
+                {
+                    FirstName = "Ali",
+                    LastName = "Mohammed",
+                    Gender = "Male",
+                }
+            );
 
         var service = new PersonsService(mockRepository, mockDataContext, mockJsonService);
 
