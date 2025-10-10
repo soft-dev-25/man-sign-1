@@ -1,4 +1,3 @@
-using System.Text.Json;
 using api.DBContext;
 using api.Models.DTOs;
 using api.Repositories;
@@ -8,64 +7,60 @@ namespace api.Services;
 public class PersonsService : IPersonsService
 {
     private readonly DataContext _context;
-    private readonly JsonSerializerOptions _jsonOptions;
+    private readonly IJsonService _jsonService;
     private readonly IPersonsRepository _personsRepository;
+    private readonly Random _random = new();
 
-    public PersonsService(IPersonsRepository personsRepository, DataContext dataContext,
-        JsonSerializerOptions jsonOptions)
+    public PersonsService(
+        IPersonsRepository personsRepository,
+        DataContext dataContext,
+        IJsonService jsonService
+    )
     {
         _personsRepository = personsRepository;
         _context = dataContext;
-        _jsonOptions = jsonOptions;
+        _jsonService = jsonService;
     }
 
-    public Task<string> GetCpr()
+    public async Task<PersonDTO> GetCpr()
+    {
+        var person = await _jsonService.GetRandomPersonFromJson();
+        person.CreateCpr();
+        return new PersonDTO { Cpr = person.Cpr };
+    }
+
+    public async Task<PersonDTO> GetNameAndGender()
+    {
+        var person = await _jsonService.GetRandomPersonFromJson();
+        return new PersonDTO { FirstName = person.FirstName, LastName = person.LastName, Gender = person.Gender };
+    }
+
+    public Task<PersonDTO> GetNameAndGenderAndDoB()
     {
         throw new NotImplementedException();
     }
 
-    public Task<Person> GetNameAndGender()
-    {
-        var json = File.ReadAllText("Data/person-names.json");
-
-        var peopleList = JsonSerializer.Deserialize<List<Person>>(json, _jsonOptions);
-
-        if (peopleList == null || peopleList.Count == 0)
-        {
-            throw new Exception("No people found");
-        }
-
-        var random = new Random();
-        var randomPerson = peopleList[random.Next(0, peopleList.Count)];
-        return Task.FromResult(randomPerson);
-    }
-
-    public Task<Person> GetNameAndGenderAndDoB()
+    public Task<PersonDTO> GetCprAndNameAndGender()
     {
         throw new NotImplementedException();
     }
 
-    public Task<Person> GetCprAndNameAndGender()
+    public Task<PersonDTO> GetCprAndNameAndGenderAndDoB()
     {
         throw new NotImplementedException();
     }
 
-    public Task<Person> GetCprAndNameAndGenderAndDoB()
+    public Task<PersonDTO> GetAddress()
     {
         throw new NotImplementedException();
     }
 
-    public Task<Person> GetAddress()
+    public Task<PersonDTO> GetPhone()
     {
         throw new NotImplementedException();
     }
 
-    public Task<Person> GetPhone()
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<List<Person>> GetPersons(int? count = 1)
+    public Task<List<PersonDTO>> GetPersons(int? count = 1)
     {
         throw new NotImplementedException();
     }

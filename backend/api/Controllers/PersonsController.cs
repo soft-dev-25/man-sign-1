@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 namespace api.Controllers;
 
 [ApiController]
-[Route("api/[controller]")]
 public class PersonsController : ControllerBase, IPersonsController
 {
     private readonly IPersonsService _personsService;
@@ -15,9 +14,11 @@ public class PersonsController : ControllerBase, IPersonsController
     }
 
     [HttpGet("cpr")]
-    public Task<IActionResult> GetCpr()
+    public async Task<IActionResult> GetCpr()
     {
-        throw new NotImplementedException();
+        var person = await _personsService.GetCpr();
+
+        return Ok(person);
     }
 
     [HttpGet("name-gender")]
