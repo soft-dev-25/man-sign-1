@@ -46,9 +46,11 @@ public class PersonsController : ControllerBase, IPersonsController
     }
 
     [HttpGet("cpr-name-gender-dob")]
-    public Task<IActionResult> GetCprAndNameAndGenderAndDoB()
+    public async Task<IActionResult> GetCprAndNameAndGenderAndDoB()
     {
-        throw new NotImplementedException();
+        var cprAndNameAndGenderAndDoB = await _personsService.GetCprAndNameAndGenderAndDoB();
+        
+        return Ok(cprAndNameAndGenderAndDoB);
     }
 
     [HttpGet("address")]
