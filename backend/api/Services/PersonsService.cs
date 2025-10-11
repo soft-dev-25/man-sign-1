@@ -35,7 +35,7 @@ public class PersonsService : IPersonsService
         {
             FirstName = person.FirstName,
             LastName = person.LastName,
-            Gender = person.Gender
+            Gender = person.Gender,
         };
     }
 

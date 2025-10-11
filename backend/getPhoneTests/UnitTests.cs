@@ -17,9 +17,7 @@ public class UnitTests
         person.CreatePhoneNumber();
 
         // Assert
-        allowedPrefixes
-            .Any(prefix => person.PhoneNumber!.StartsWith(prefix))
-            .Should().BeTrue();
+        allowedPrefixes.Any(prefix => person.PhoneNumber!.StartsWith(prefix)).Should().BeTrue();
     }
 
     [Fact]

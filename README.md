@@ -17,7 +17,7 @@ Make sure to run `npm install` after cloning this repository to use Husky's pre-
 
 ```json
 {
-	"CPR": "1002272249"
+ "CPR": "1002272249"
 }
 ```
 
@@ -30,9 +30,9 @@ Make sure to run `npm install` after cloning this repository to use Husky's pre-
 
 ```json
 {
-	"firstName": "Nanna P.",
-	"lastName": "Paulsen",
-	"gender": "female"
+ "firstName": "Nanna P.",
+ "lastName": "Paulsen",
+ "gender": "female"
 }
 ```
 
@@ -45,10 +45,10 @@ Make sure to run `npm install` after cloning this repository to use Husky's pre-
 
 ```json
 {
-	"firstName": "Nanna P.",
-	"lastName": "Paulsen",
-	"gender": "female",
-	"birthDate": "2012-11-29"
+ "firstName": "Nanna P.",
+ "lastName": "Paulsen",
+ "gender": "female",
+ "birthDate": "2012-11-29"
 }
 ```
 
@@ -61,7 +61,7 @@ Make sure to run `npm install` after cloning this repository to use Husky's pre-
 
 ```json
 {
-	"phoneNumber": "78678391"
+ "phoneNumber": "78678391"
 }
 ```
 
