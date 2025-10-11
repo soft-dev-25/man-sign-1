@@ -39,9 +39,20 @@ public class PersonsService : IPersonsService
         };
     }
 
-    public Task<PersonDTO> GetNameAndGenderAndDoB()
+    public async Task<PersonDTO> GetNameAndGenderAndDoB()
     {
-        throw new NotImplementedException();
+        var person = await _jsonService.GetRandomPersonFromJson();
+        person.CreateBirthdate();
+
+        var dto = new PersonDTO
+        {
+            FirstName = person.FirstName,
+            LastName = person.LastName,
+            Gender = person.Gender,
+        };
+        dto.setBirthDate(person.BirthDate);
+
+        return dto;
     }
 
     public Task<PersonDTO> GetCprAndNameAndGender()

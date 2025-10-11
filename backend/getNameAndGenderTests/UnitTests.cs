@@ -23,7 +23,7 @@ public class UnitTests
                 {
                     FirstName = "Ali",
                     LastName = "Mohammed",
-                    Gender = "Male",
+                    Gender = "male",
                 }
             );
 
@@ -36,6 +36,6 @@ public class UnitTests
         person.Should().NotBeNull();
         person.FirstName.Should().Be("Ali");
         person.LastName.Should().Be("Mohammed");
-        person.Gender.Should().Be("Male");
+        person.Gender.Should().Be("male");
     }
 }

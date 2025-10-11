@@ -30,9 +30,11 @@ public class PersonsController : ControllerBase, IPersonsController
     }
 
     [HttpGet("name-gender-dob")]
-    public Task<IActionResult> GetNameAndGenderAndDoB()
+    public async Task<IActionResult> GetNameAndGenderAndDoB()
     {
-        throw new NotImplementedException();
+        var nameGenderDoB = await _personsService.GetNameAndGenderAndDoB();
+
+        return Ok(nameGenderDoB);
     }
 
     [HttpGet("cpr-name-gender")]
