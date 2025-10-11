@@ -1,5 +1,5 @@
-using System.Text.Json.Serialization;
 using api.ExceptionHandlers;
+using api.Shared.Constants;
 
 namespace api.Models.DTOs;
 
@@ -29,14 +29,13 @@ public class Person
 
     public string? PhoneNumber { get; set; }
 
-    public Person() { }
-
     public void CreateCpr()
     {
         if (Gender != "male" && Gender != "female")
         {
             throw new BadRequestException($"Gender {Gender} is unknown");
         }
+
         var random = new Random();
 
         if (BirthDate == null)
@@ -99,5 +98,23 @@ public class Person
         }
 
         BirthDate = new DateOnly(year, month, day);
+    }
+
+    public void CreatePhoneNumber()
+    {
+        var phonePrefixes = PhoneNumberData.AllowedPrefixes;
+
+        var random = new Random();
+
+        var phoneNumber = phonePrefixes[random.Next(phonePrefixes.Count)];
+
+        var numbersToAdd = 8 - phoneNumber.Length;
+
+        for (var i = 0; i < numbersToAdd; i++)
+        {
+            phoneNumber += random.Next(0, 10);
+        }
+
+        PhoneNumber = phoneNumber;
     }
 }
