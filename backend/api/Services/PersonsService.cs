@@ -65,7 +65,7 @@ public class PersonsService : IPersonsService
             FirstName = person.FirstName,
             LastName = person.LastName,
             Gender = person.Gender,
-            Cpr = person.Cpr
+            Cpr = person.Cpr,
         };
 
         return dto;

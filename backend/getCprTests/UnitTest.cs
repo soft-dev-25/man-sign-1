@@ -42,7 +42,7 @@ public class UnitTest
         Assert.Equal(cprMonth, bMonth);
         Assert.Equal(cprYear, bYear);
     }
-    
+
     [InlineData("female", new[] { 2, 4, 6, 8, 0 })]
     [InlineData("male", new[] { 1, 3, 5, 7, 9 })]
     [Theory]
