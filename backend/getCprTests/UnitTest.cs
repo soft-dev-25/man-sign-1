@@ -11,6 +11,7 @@ namespace getCprTests;
 
 public class UnitTest
 {
+    // TODO: Nedenstående test skal flyttes til en Person.cs.test klasse
     [Fact]
     public async Task BirthDate_And_Cpr_Should_Be_Equal()
     {
@@ -24,22 +25,22 @@ public class UnitTest
         Assert.NotNull(person.Cpr);
         Assert.NotNull(person.BirthDate);
 
-        // CPR (DDMMYY)
+        // CPR ("DDMMYYXXXX")
         var cprDate = person.Cpr.Substring(0, 6);
-        var day = cprDate.Substring(0, 2);
-        var month = cprDate.Substring(2, 2);
-        var year = cprDate.Substring(4, 2); // Assuming 20xx for simplicity
+        var cprDay = cprDate.Substring(0, 2);
+        var cprMonth = cprDate.Substring(2, 2);
+        var cprYear = cprDate.Substring(4, 2);
 
-        // DateOfBirth (YYYY-MM-DD)
-        var dobParts = person.BirthDate.Split('-');
-        var dobYear = dobParts[0];
-        var dobMonth = dobParts[1];
-        var dobDay = dobParts[2];
+        // BirthDate
+        var bDate = person.BirthDate.Value;
+        var bDay = $"{bDate.Day:D2}";
+        var bMonth = $"{bDate.Month:D2}";
+        var bYear = bDate.Year.ToString().Substring(2);
 
         // Compare
-        Assert.Equal(day, dobDay);
-        Assert.Equal(month, dobMonth);
-        Assert.Equal(year, dobYear.Substring(2));
+        Assert.Equal(cprDay, bDay);
+        Assert.Equal(cprMonth, bMonth);
+        Assert.Equal(cprYear, bYear);
     }
 
     [InlineData("female", new[] { 2, 4, 6, 8, 0 })]
