@@ -38,4 +38,20 @@ Make sure to run `npm install` after cloning this repository to use Husky's pre-
 
 </td>
 </tr>
+<tr>
+<td> <code>/name-gender-dob</code> </td>
+<td> Receive a random person's first name, last name, gender and date of birth (YYYY-MM-DD) </td>
+<td>
+
+```json
+{
+  "firstName": "Nanna P.",
+  "lastName": "Paulsen",
+  "gender": "female",
+  "birthDate": "2012-11-29"
+}
+```
+
+</td>
+</tr>
 </table>
