@@ -41,7 +41,6 @@ public class Person
 
         CreateBirthdate();
 
-        
         var year = BirthDate.Value.Year;
         var month = BirthDate.Value.Month;
         var day = BirthDate.Value.Day;

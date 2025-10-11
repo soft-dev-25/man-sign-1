@@ -30,7 +30,7 @@ public class UnitTest
         var cprDay = cprDate.Substring(0, 2);
         var cprMonth = cprDate.Substring(2, 2);
         var cprYear = cprDate.Substring(4, 2);
-        
+
         // BirthDate
         var bDate = person.BirthDate.Value;
         var bDay = $"{bDate.Day:D2}";
