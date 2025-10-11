@@ -54,4 +54,21 @@ Make sure to run `npm install` after cloning this repository to use Husky's pre-
 
 </td>
 </tr>
+</tr>
+<tr>
+<td> <code>/cpr-name-gender</code> </td>
+<td> Receive a random person's first name, last name, gender and cpr </td>
+<td>
+
+```json
+{
+  "CPR":"0503523211",
+  "firstName":"Sander S.",
+  "lastName":"Friis",
+  "gender":"male"
+}
+```
+
+</td>
+</tr>
 </table>
