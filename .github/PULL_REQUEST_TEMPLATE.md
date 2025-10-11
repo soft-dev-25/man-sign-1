@@ -25,6 +25,11 @@ _Add your description here._
 
 ## How to test?
 
+<!-- 
 1. Clone repo
-2. Run ....
-3. ....
+2. Run `npm install`
+3. Run `npm test` for tests
+4. Setup root .env
+5. Run `docker compose up -d`
+6. Run `curl localhost:3000/CHANGE_ME` to see JSON response 
+-->
