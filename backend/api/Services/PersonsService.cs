@@ -44,13 +44,15 @@ public class PersonsService : IPersonsService
         var person = await _jsonService.GetRandomPersonFromJson();
         person.CreateBirthdate();
 
-        return new PersonDTO
+        var dto = new PersonDTO
         {
             FirstName = person.FirstName,
             LastName = person.LastName,
             Gender = person.Gender,
-            BirthDate = person.BirthDate,
         };
+        dto.setBirthDate(person.BirthDate);
+
+        return dto;
     }
 
     public Task<PersonDTO> GetCprAndNameAndGender()
