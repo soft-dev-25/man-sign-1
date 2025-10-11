@@ -38,9 +38,11 @@ public class PersonsController : ControllerBase, IPersonsController
     }
 
     [HttpGet("cpr-name-gender")]
-    public Task<IActionResult> GetCprAndNameAndGender()
+    public async Task<IActionResult> GetCprAndNameAndGender()
     {
-        throw new NotImplementedException();
+        var cprNameAndGender = await _personsService.GetCprAndNameAndGender();
+
+        return Ok(cprNameAndGender);
     }
 
     [HttpGet("cpr-name-gender-dob")]
@@ -58,9 +60,11 @@ public class PersonsController : ControllerBase, IPersonsController
     }
 
     [HttpGet("phone")]
-    public Task<IActionResult> GetPhone()
+    public async Task<IActionResult> GetPhone()
     {
-        throw new NotImplementedException();
+        var phoneNumber = await _personsService.GetPhone();
+
+        return Ok(phoneNumber);
     }
 
     [HttpGet("person")]

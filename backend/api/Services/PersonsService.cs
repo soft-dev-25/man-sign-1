@@ -55,9 +55,20 @@ public class PersonsService : IPersonsService
         return dto;
     }
 
-    public Task<PersonDTO> GetCprAndNameAndGender()
+    public async Task<PersonDTO> GetCprAndNameAndGender()
     {
-        throw new NotImplementedException();
+        var person = await _jsonService.GetRandomPersonFromJson();
+        person.CreateCpr();
+
+        var dto = new PersonDTO
+        {
+            FirstName = person.FirstName,
+            LastName = person.LastName,
+            Gender = person.Gender,
+            Cpr = person.Cpr,
+        };
+
+        return dto;
     }
 
     public async Task<PersonDTO> GetCprAndNameAndGenderAndDoB()
@@ -82,9 +93,11 @@ public class PersonsService : IPersonsService
         throw new NotImplementedException();
     }
 
-    public Task<PersonDTO> GetPhone()
+    public async Task<PersonDTO> GetPhone()
     {
-        throw new NotImplementedException();
+        var person = await _jsonService.GetRandomPersonFromJson();
+        person.CreatePhoneNumber();
+        return new PersonDTO { PhoneNumber = person.PhoneNumber };
     }
 
     public Task<List<PersonDTO>> GetPersons(int? count = 1)
