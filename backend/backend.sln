@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "getNameAndGenderTests", "ge
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "getNameAndGenderAndDoBTests", "getNameAndGenderAndDoBTests\getNameAndGenderAndDoBTests.csproj", "{09626E7D-C242-45F9-B3F1-97B7FFBAB2FD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "getPhoneTests", "getPhoneTests\getPhoneTests.csproj", "{4808FEF5-BC91-4FFF-8CC1-0C1F645405FF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,6 +28,10 @@ Global
 		{2A4F5EC3-E5FB-46AB-B934-F3D5A346C38F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2A4F5EC3-E5FB-46AB-B934-F3D5A346C38F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2A4F5EC3-E5FB-46AB-B934-F3D5A346C38F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4808FEF5-BC91-4FFF-8CC1-0C1F645405FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4808FEF5-BC91-4FFF-8CC1-0C1F645405FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4808FEF5-BC91-4FFF-8CC1-0C1F645405FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4808FEF5-BC91-4FFF-8CC1-0C1F645405FF}.Release|Any CPU.Build.0 = Release|Any CPU
 		{09626E7D-C242-45F9-B3F1-97B7FFBAB2FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{09626E7D-C242-45F9-B3F1-97B7FFBAB2FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{09626E7D-C242-45F9-B3F1-97B7FFBAB2FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
