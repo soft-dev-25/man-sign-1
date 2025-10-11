@@ -49,7 +49,7 @@ public class PersonsController : ControllerBase, IPersonsController
     public async Task<IActionResult> GetCprAndNameAndGenderAndDoB()
     {
         var cprAndNameAndGenderAndDoB = await _personsService.GetCprAndNameAndGenderAndDoB();
-        
+
         return Ok(cprAndNameAndGenderAndDoB);
     }
 
