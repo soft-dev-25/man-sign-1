@@ -58,9 +58,11 @@ public class PersonsController : ControllerBase, IPersonsController
     }
 
     [HttpGet("phone")]
-    public Task<IActionResult> GetPhone()
+    public async Task<IActionResult> GetPhone()
     {
-        throw new NotImplementedException();
+        var phoneNumber = await _personsService.GetPhone();
+
+        return Ok(phoneNumber);
     }
 
     [HttpGet("person")]
