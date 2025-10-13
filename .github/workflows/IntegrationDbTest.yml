@@ -28,7 +28,7 @@ jobs:
                     --health-timeout=5s
                     --health-retries=5
         env:
-            ConnectionStrings__Default: ${{secrets.CONNECTIONSTRINGS__DEFAULT}}
+            ConnectionStrings__Default: "Host=localhost;Port=5432;Database=getaddressdb;Username=${{secrets.POSTGRES_USER}};Password=${{secrets.POSTGRES_PASSWORD}};SslMode=none;"
 
         steps:
             - name: Checkout Repository
