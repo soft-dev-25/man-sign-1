@@ -36,7 +36,7 @@ jobs:
             rm -rf man-sign-1
 
             echo "Clone repository"
-            git clone https://github.com/soft-dev-25/man-sign-1.git
+            git clone https://github.com/${{ github.repository }}.git
 
             echo "cd to repository"
             cd man-sign-1
