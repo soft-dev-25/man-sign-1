@@ -29,17 +29,17 @@ jobs:
           key: ${{ secrets.VM_PRIVATE_KEY }}
           envs: POSTGRES_USER,POSTGRES_PW
           script: |
+            echo "Extract repository name from context"
+            REPO_NAME=$(basename "${{ github.repository }}")
+
             echo "cd to working directory"
-            cd ./deployment
-            
-            echo "Delete old repository"
-            rm -rf man-sign-1
+            rm -rf "$REPO_NAME"
 
             echo "Clone repository"
-            git clone https://github.com/${{ github.repository }}.git
+            git clone "https://github.com/${{ github.repository }}.git"
 
             echo "cd to repository"
-            cd man-sign-1
+            cd "$REPO_NAME"
 
             echo "Ensure Docker is installed"
             docker --version
