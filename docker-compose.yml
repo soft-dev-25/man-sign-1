@@ -39,6 +39,7 @@ services:
       timeout: 5s
       retries: 5
 
+  # Test Database Service locally on port 5433 with name GetAddress integration test
   db-test:
     container_name: database-container-test
     image: postgres:latest
