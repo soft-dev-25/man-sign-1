@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace getAddressTest.IntegrationTest
 {
+    
     [TestFixture]
     [Category("IntegrationDbTest")]
     public class PostalTest

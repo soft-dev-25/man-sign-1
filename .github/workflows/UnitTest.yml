@@ -1,7 +1,7 @@
 name: Unit Tests - getAddress
 on:
   push:
-    branches: [feat/get-adress-ci]
+    branches: [feat/get-address]
     paths:
       - backend/api/Models/Address.cs
       - backend/getAddressTest/UnitTest/**

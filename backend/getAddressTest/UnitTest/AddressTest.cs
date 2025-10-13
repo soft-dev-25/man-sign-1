@@ -3,7 +3,7 @@ using api.Models;
 
 namespace getAddressTest.UnitTest
 {
-    
+
     [TestFixture]
     [Category("UnitTest")]
     public class AddressTest
