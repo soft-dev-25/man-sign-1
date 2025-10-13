@@ -2,7 +2,7 @@ name: .NET Integration DB Test
 
 on:
     push:
-        branches: [ "feat/get-adress-ci" ]
+        branches: ["feat/get-adress-ci"]
         paths:
             - backend/api/Repositories/**
             - backend/api/Services/**
