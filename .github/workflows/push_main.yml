@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+  pull_request:
 
 jobs:
   call-tests:
@@ -32,7 +33,10 @@ jobs:
             echo "Extract repository name from context"
             REPO_NAME=$(basename "${{ github.repository }}")
 
-            echo "cd to working directory"
+            echo "cd to deployment directory"
+            cd ./deployment
+
+            echo "Delete old repository"
             rm -rf "$REPO_NAME"
 
             echo "Clone repository"
