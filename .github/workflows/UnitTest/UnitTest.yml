@@ -1,7 +1,7 @@
 name: .NET Unit Tests
 on:
     push:
-        branches: [feat/get-adress-ci]
+        branches: [ "feat/get-adress-ci" ]
         paths:
             - backend/api/Models/Address.cs
             - backend/getAddressTest/UnitTest/**
