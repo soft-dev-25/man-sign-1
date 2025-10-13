@@ -20,8 +20,6 @@ namespace api.Models
         public string? TownName { get; set; }
 
         public FloorType FloorType { private get; set; } = FloorType.None;
-
-
         public override string ToString()
         {
             var floorPart = Floor.HasValue ? $"{Floor}." : ""; // e.g. "3."

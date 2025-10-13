@@ -17,8 +17,6 @@ public class DataContext : DbContext
             .UseNpgsql(connectionString)
             .LogTo(Console.WriteLine, LogLevel.Information)
             .EnableDetailedErrors();
-
-
     }
 
     public DataContext(DbContextOptions<DataContext> options) : base(options)

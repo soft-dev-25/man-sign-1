@@ -1,52 +1,52 @@
 name: Integration DB Test
 on:
-    push:
-        branches: [feat/get-address]
-        paths:
-            - backend/api/Repositories/**
-            - backend/api/Services/**
-            - backend/api/DBContext/**
-            - backend/api/Migrations/**
-            - backend/getAddressTest/IntegrationTest/**
+  push:
+    branches: [feat/get-address]
+    paths:
+      - backend/api/Repositories/**
+      - backend/api/Services/**
+      - backend/api/DBContext/**
+      - backend/api/Migrations/**
+      - backend/getAddressTest/IntegrationTest/**
 
 jobs:
-    integration-tests:
-        runs-on: ubuntu-latest
+  integration-tests:
+    runs-on: ubuntu-latest
 
-        services:
-            postgres:
-                image: postgres:latest
-                env:
-                    POSTGRES_USER: testuser
-                    POSTGRES_PASSWORD: testpassword
-                    POSTGRES_DB: GetAddress
-                    POSTGRES_HOST_AUTH_METHOD: trust
-                ports:
-                    - 5432:5432
-                options: >-
-                    --health-cmd="pg_isready -U testuser -d GetAddress"
-                    --health-interval=10s
-                    --health-timeout=5s
-                    --health-retries=5
-
+    services:
+      postgres:
+        image: postgres:latest
         env:
-            # This is the connection string your tests will use
-            ConnectionStrings__Default: "Server=localhost;Port=5432;Database=GetAddress;userid=testuser;password=testpassword;SslMode=Disable;"
+          POSTGRES_USER: testuser
+          POSTGRES_PASSWORD: testpassword
+          POSTGRES_DB: GetAddress
+          POSTGRES_HOST_AUTH_METHOD: trust
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd="pg_isready -U testuser -d GetAddress"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
 
-        steps:
-            - name: Checkout Code
-              uses: actions/checkout@v3
+    env:
+      # This is the connection string your tests will use
+      ConnectionStrings__Default: "Server=localhost;Port=5432;Database=GetAddress;userid=testuser;password=testpassword;SslMode=Disable;"
 
-            - name: Setup .NET
-              uses: actions/setup-dotnet@v3
-              with:
-                  dotnet-version: "9.0.x"
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
 
-            - name: Restore Dependencies
-              run: dotnet restore backend/getAddressTest/getAddressTest.csproj
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: "9.0.x"
 
-            - name: Build
-              run: dotnet build backend/getAddressTest/getAddressTest.csproj --configuration Release --no-restore
+      - name: Restore Dependencies
+        run: dotnet restore backend/getAddressTest/getAddressTest.csproj
 
-            - name: Run Integration Tests
-              run: dotnet test backend/getAddressTest/getAddressTest.csproj --configuration Release --no-build --filter "TestCategory=IntegrationDbTest"
+      - name: Build
+        run: dotnet build backend/getAddressTest/getAddressTest.csproj --configuration Release --no-restore
+
+      - name: Run Integration Tests
+        run: dotnet test backend/getAddressTest/getAddressTest.csproj --configuration Release --no-build --filter "TestCategory=IntegrationDbTest"
