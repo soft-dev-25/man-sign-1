@@ -10,7 +10,7 @@ on:
         #     - backend/getAddressTest/IntegrationTest/**
 
 jobs:
-    integration-db-test:
+    IntegrationDbTest:
         runs-on: ubuntu-latest
         services:
             mysql:
@@ -41,7 +41,7 @@ jobs:
                   restore-keys: |
                       ${{ runner.os }}-nuget-
             - name: Setup .NET
-              uses: actions/setup-dotnet@v1
+              uses: actions/setup-dotnet@v4
               with:
                   dotnet-version: "9.0.x"
             - name: Restore dependencies
