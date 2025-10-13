@@ -6,7 +6,7 @@ namespace api.Models
 
     public class Address
     {
-         private static readonly Random random = new Random();
+        //  private static readonly Random random = new Random();
         public string? Street { get; set; }
         public string? Number { get; set; }
         public int? Floor { private get; set; }
@@ -128,45 +128,55 @@ namespace api.Models
         }
 
         #region Function - return a fake address
+        private static int GenerateRandomNumber(int x, int y)
+        {
+            // Generates a random integer between x and y
+            return Random.Shared.Next(x, y);
+        }
+        private static Random GetRandomShared()
+        {
+            return Random.Shared;
+        }
+
         public static Address GenerateFakeAddress()
         {
             // var random = new Random();
 
             // Generate a random street name (5-12 characters, includes Danish letters)
-            string street = GetRandomText(random.Next(5, 13), true);
+            string street = GetRandomText(GenerateRandomNumber(5, 13), true);
 
             // Generate a random number (1-3 digits, optionally with uppercase or Danish letter)
-            int numberPart = random.Next(1, 1000);
+            int numberPart = GenerateRandomNumber(1, 1000);
             string number = numberPart.ToString();
-            if (random.NextDouble() < 0.3) // 30% chance to add a letter
+            if (GetRandomShared().NextDouble() < 0.3) // 30% chance to add a letter
             {
                 string letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZÆØÅ";
-                number += letters[random.Next(letters.Length)];
+                number += letters[GetRandomShared().Next(letters.Length)];
             }
 
             // Generate a random floor (null or 1-10) with 70% chance of being null and if null return FloorType = "st"
-            int? floor = random.NextDouble() < 0.7 ? random.Next(1, 11) : null;
+            int? floor = GetRandomShared().NextDouble() < 0.7 ? GetRandomShared().Next(1, 11) : null;
 
 
             // Generate a random door (valid formats)
             string[] doorOptions = ["th", "mf", "tv"];
             string door;
-            int doorType = random.Next(3);
+            int doorType = GetRandomShared().Next(3);
             switch (doorType)
             {
                 case 0:
-                    door = doorOptions[random.Next(doorOptions.Length)];
+                    door = doorOptions[GetRandomShared().Next(doorOptions.Length)];
                     break;
                 case 1:
-                    door = random.Next(1, 51).ToString();
+                    door = GetRandomShared().Next(1, 51).ToString();
                     break;
                 default:
                     {
                         // Letter (upper/lower/Danish), optional dash, 1-3 digits
                         const string letters = "abcdefghijklmnopqrstuvwxyzæøåABCDEFGHIJKLMNOPQRSTUVWXYZÆØÅ";
-                        char letter = letters[random.Next(letters.Length)];
-                        string dash = random.NextDouble() < 0.5 ? "-" : "";
-                        int digits = random.Next(1, 1000);
+                        char letter = letters[GetRandomShared().Next(letters.Length)];
+                        string dash = GetRandomShared().NextDouble() < 0.5 ? "-" : "";
+                        int digits = GetRandomShared().Next(1, 1000);
                         door = $"{letter}{dash}{digits}";
                         break;
                     }
@@ -202,10 +212,10 @@ namespace api.Models
             var text = new char[length];
 
             // The first character is chosen from position 1 to avoid the space
-            text[0] = validCharacters[random.Next(1, validCharacters.Length)];
+            text[0] = validCharacters[GetRandomShared().Next(1, validCharacters.Length)];
             for (int i = 1; i < length; i++)
             {
-                text[i] = validCharacters[random.Next(0, validCharacters.Length)];
+                text[i] = validCharacters[GetRandomShared().Next(0, validCharacters.Length)];
             }
 
             return new string(text);
