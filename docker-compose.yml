@@ -38,3 +38,19 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+
+  db-test:
+    container_name: database-container-test
+    image: postgres:latest
+    restart: always
+    environment:
+      - POSTGRES_DB=GetAddress
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PW}
+    ports:
+      - "5433:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
