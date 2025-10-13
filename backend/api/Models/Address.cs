@@ -223,12 +223,13 @@ namespace api.Models
         #endregion
 
     }
-}
-
-
-
-public enum FloorType
+    public enum FloorType
 {
     None,
     St
 }
+}
+
+
+
+
