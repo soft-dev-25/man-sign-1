@@ -4,11 +4,11 @@ on:
     push:
         branches: [feat/get-adress-ci]
         paths:
-            - "backend/api/Repositories/**"
-            - "backend/api/Services/**"
-            - "backend/api/DBContext/**"
-            - "backend/api/Migrations/**"
-            - "backend/getAddressTest/IntegrationTest/**"
+            - backend/api/Repositories/**
+            - backend/api/Services/**
+            - backend/api/DBContext/**
+            - backend/api/Migrations/**
+            - backend/getAddressTest/IntegrationTest/**
 
 jobs:
     integration-db-test:

@@ -3,8 +3,8 @@ on:
     push:
         branches: [feat/get-adress-ci]
         paths:
-            - "backend/api/Models/Address.cs"
-            - "backend/getAddressTest/UnitTest/**"
+            - backend/api/Models/Address.cs
+            - backend/getAddressTest/UnitTest/**
 
     jobs:
         unit-tests-getAddress:
