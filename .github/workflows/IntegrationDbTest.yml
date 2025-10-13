@@ -46,5 +46,9 @@ jobs:
                   dotnet-version: "9.0.x"
             - name: Restore dependencies
               run: dotnet restore backend/getAddressTest/getAddressTest.csproj
+        
             - name: Build
-              run: dotnet build backend/getAddressTest/getAddressTest.csproj  --filter "TestCategory=IntegrationDbTest" --no-restore --configuration Release
+              run: dotnet build backend/getAddressTest/getAddressTest.csproj --no-restore --configuration Release
+
+            - name: Run Integration DB Tests
+              run: dotnet test backend/getAddressTest/getAddressTest.csproj --no-build --configuration Release --filter "TestCategory=IntegrationDbTest"
