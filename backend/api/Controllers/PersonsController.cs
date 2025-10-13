@@ -5,8 +5,7 @@ namespace api.Controllers;
 
 [ApiController]
 public class PersonsController : ControllerBase, IPersonsController
-{
-    
+{  
     private readonly IPersonsService _personsService;
 
     public PersonsController(IPersonsService personsService)
