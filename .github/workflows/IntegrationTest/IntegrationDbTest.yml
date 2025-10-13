@@ -1,0 +1,51 @@
+name: .NET Integration DB Test
+
+on:
+    push:
+        branches: [feat/get-address-ci]
+        paths:
+            - "backend/api/Repositories/**"
+            - "backend/api/Services/**"
+            - "backend/api/DBContext/**"
+            - "backend/api/Migrations/**"
+            - "backend/getAddressTest/IntegrationTest/**"
+
+jobs:
+    integration-db-test:
+        runs-on: ubuntu-latest
+        services:
+            mysql:
+                image: mysql:8.0
+                env:
+                    MYSQL_ROOT_PASSWORD: ${{secrets.MYSQL_ROOT_PASSWORD}}
+                    MYSQL_DATABASE: testdb
+                    MYSQL_USER: testuser
+                    MYSQL_PASSWORD: ${{secrets.MYSQL_PASSWORD}}
+                ports:
+                    - 3307:3306
+                options: >-
+                    --health-cmd="mysqladmin ping --silent"
+                    --health-interval=10s
+                    --health-timeout=5s
+                    --health-retries=5
+        env:
+            ConnectionStrings__Default: ${{secrets.CONNECTIONSTRINGS__DEFAULT}}
+
+        steps:
+            - name: Checkout Repository
+              uses: actions/checkout@v4
+            - name: Cache NuGet packages
+              uses: actions/cache@v4
+              with:
+                  path: ~/.nuget/packages
+                  key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
+                  restore-keys: |
+                      ${{ runner.os }}-nuget-
+            - name: Setup .NET
+              uses: actions/setup-dotnet@v1
+              with:
+                  dotnet-version: "9.0.x"
+            - name: Restore dependencies
+              run: dotnet restore backend/getAddressTest/getAddressTest.csproj
+            - name: Build
+              run: dotnet build backend/getAddressTest/getAddressTest.csproj  --filter "TestCategory!=UnitTest" --no-restore --configuration Release

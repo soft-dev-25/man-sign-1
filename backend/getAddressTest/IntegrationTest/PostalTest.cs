@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 namespace getAddressTest.IntegrationTest
 {
     [TestFixture]
-    [Category("IntegrationTest")]
+    [Category("IntegrationDbTest")]
     public class PostalTest
     {
         private DataContext _context;
