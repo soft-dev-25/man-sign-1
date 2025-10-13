@@ -2,12 +2,12 @@ name: Integration DB Test
 on:
     push:
         branches: [feat/get-adress-ci]
-        # paths:
-        #     - backend/api/Repositories/**
-        #     - backend/api/Services/**
-        #     - backend/api/DBContext/**
-        #     - backend/api/Migrations/**
-        #     - backend/getAddressTest/IntegrationTest/**
+        paths:
+            - backend/api/Repositories/**
+            - backend/api/Services/**
+            - backend/api/DBContext/**
+            - backend/api/Migrations/**
+            - backend/getAddressTest/IntegrationTest/**
 
 jobs:
     IntegrationDbTest:
@@ -19,6 +19,7 @@ jobs:
                     POSTGRES_DB: getaddressdb
                     POSTGRES_PASSWORD: ${{secrets.POSTGRES_PASSWORD}}
                     POSTGRES_USER: ${{secrets.POSTGRES_USER}}
+                    POSTGRES_HOST_AUTH_METHOD: trust
                 ports:
                     - 5432:5432
                 options: >-

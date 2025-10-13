@@ -10,6 +10,7 @@ namespace api.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            
             migrationBuilder.CreateTable(
                 name: "postal",
                 columns: table => new
