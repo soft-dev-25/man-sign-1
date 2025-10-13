@@ -11,12 +11,11 @@ namespace getAddressTest.IntegrationTest
     {
         private DataContext _context;
         private IPersonsRepository _personsRepository;
-
         [SetUp]
         public void Setup()
         {
             Env.TraversePath().Load();
-            var connectionString = Environment.GetEnvironmentVariable("ConnectionString_test")!;
+            var connectionString = Environment.GetEnvironmentVariable("ConnectionStrings__Default")!;
             if (string.IsNullOrEmpty(connectionString))
             {
                 throw new InvalidOperationException("Connection string is not set in environment variables.");
