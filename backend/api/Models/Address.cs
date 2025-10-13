@@ -3,7 +3,6 @@
 namespace api.Models
 {
     // link to information about danish address formats: https://danmarksadresser.dk/om-adresser/saadan-gengives-en-adresse
-
     public class Address
     {
         public string? Street { get; set; }

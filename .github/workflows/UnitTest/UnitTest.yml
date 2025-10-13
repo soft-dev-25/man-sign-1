@@ -2,9 +2,9 @@ name: Unit Tests - getAddress
 on:
   push:
     branches: [feat/get-adress-ci]
-    # paths:
-    #     - backend/api/Models/Address.cs
-    #     - backend/getAddressTest/UnitTest/**
+    paths:
+      - backend/api/Models/Address.cs
+      - backend/getAddressTest/UnitTest/**
 
 jobs:
   UnitTestsGetAddress:
@@ -30,4 +30,4 @@ jobs:
       - name: Build project
         run: dotnet build --no-restore ./backend/getAddressTest/getAddressTest.csproj --configuration Release
       - name: Run unit tests
-        run: dotnet test ./backend/getAddressTest/getAddressTest.csproj --filter "TestCategory=IntegrationDbTest" --configuration Release --no-build --logger "trx;LogFileName=test-results.trx" --results-directory ./TestResults
+        run: dotnet test ./backend/getAddressTest/getAddressTest.csproj --filter "TestCategory=UnitTest" --configuration Release --no-build --logger "trx;LogFileName=test-results.trx" --results-directory ./TestResults
