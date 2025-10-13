@@ -16,7 +16,7 @@ jobs:
             postgres:
                 image: postgres:latest
                 env:
-                    POSTGRES_DB: getaddressdb
+                    POSTGRES_DB: GetAddress
                     POSTGRES_PASSWORD: ${{secrets.POSTGRES_PASSWORD}}
                     POSTGRES_USER: ${{secrets.POSTGRES_USER}}
                     POSTGRES_HOST_AUTH_METHOD: trust
@@ -28,7 +28,7 @@ jobs:
                     --health-timeout=5s
                     --health-retries=5
         env:
-            ConnectionStrings__Default: "server=localhost;port=5432;database=GetAddress;userid=user;password=secret;SslMode=Disable;"
+            ConnectionStrings__Default: "server=localhost;port=5432;database=GetAddress;userid=${{secrets.POSTGRES_USER}};password=${{secrets.POSTGRES_PASSWORD}};SslMode=Disable;"
             DOTNET_ROOT: /usr/share/dotnet
         steps:
             - name: Checkout Repository
