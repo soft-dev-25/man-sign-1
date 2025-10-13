@@ -6,7 +6,6 @@ namespace api.Repositories;
 public class PersonsRepository(DataContext context) : IPersonsRepository
 {
     private readonly Random _random = new();
-
     public Postal GetPostal()
     {
         //Find all data and return a random postal code
