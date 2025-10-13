@@ -10,6 +10,7 @@ namespace api.Models
         public string? Number { get; set; }
         public int? Floor { private get; set; }
 
+
         public string FloorDisplay =>
             Floor.HasValue ? Floor.Value.ToString()
             : FloorType == FloorType.St ? nameof(FloorType.St)
