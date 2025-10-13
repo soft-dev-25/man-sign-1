@@ -5,7 +5,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace getAddressTest.IntegrationTest
 {
-    
     [TestFixture]
     [Category("IntegrationDbTest")]
     public class PostalTest
@@ -17,7 +16,7 @@ namespace getAddressTest.IntegrationTest
         public void Setup()
         {
             Env.TraversePath().Load();
-            var connectionString = Environment.GetEnvironmentVariable("ConnectionString_test")!;
+            var connectionString = Environment.GetEnvironmentVariable("ConnectionStrings__Default")!;
             if (string.IsNullOrEmpty(connectionString))
             {
                 throw new InvalidOperationException("Connection string is not set in environment variables.");
