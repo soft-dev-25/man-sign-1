@@ -28,7 +28,7 @@ jobs:
                     --health-timeout=5s
                     --health-retries=5
         env:
-            ConnectionStrings__Default: "server=localhost;port=5433;database=GetAddress;userid=user;password=secret;SslMode=none;"
+            ConnectionStrings__Default: "server=localhost;port=5432;database=GetAddress;userid=user;password=secret;SslMode=none;"
             DOTNET_ROOT: /usr/share/dotnet
         steps:
             - name: Checkout Repository
