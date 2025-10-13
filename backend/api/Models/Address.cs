@@ -6,6 +6,7 @@ namespace api.Models
 
     public class Address
     {
+         private static readonly Random random = new Random();
         public string? Street { get; set; }
         public string? Number { get; set; }
         public int? Floor { private get; set; }
@@ -53,7 +54,7 @@ namespace api.Models
                 throw new ArgumentNullException(nameof(Number), $"Number {Number} must be provided");
             }
 
-            if (!Regex.IsMatch(Number, @"^[1-9][0-9]{0,2}[A-Z]?$"))
+            if (!Regex.IsMatch(Number, @"^[1-9][0-9]{0,2}[A-Z]?$",RegexOptions.None, TimeSpan.FromMilliseconds(200)))
             {
                 throw new ArgumentException(
                     $"Invalid number format: '{Number}'. It must be 1 to 3 digits (not starting with 0), optionally followed by a single uppercase letter. Examples: '7', '42B', '123'."
@@ -95,11 +96,11 @@ namespace api.Models
             // Setups to validate the door:
 
             // 1. Check for "th", "mf", "tv" (case-insensitive)
-            if (Regex.IsMatch(Door, @"^(th|mf|tv)$", RegexOptions.IgnoreCase))
+            if (Regex.IsMatch(Door, @"^(th|mf|tv)$", RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(200)))
                 return;
 
             // 2. Check for digits only (door number)
-            if (Regex.IsMatch(Door, @"^\d+$"))
+            if (Regex.IsMatch(Door, @"^\d+$", RegexOptions.None, TimeSpan.FromMilliseconds(200)))
             {
                 if (!int.TryParse(Door, out int doorNumber) || doorNumber < 1 || doorNumber > 50)
                     throw new ArgumentException("Door number must be an integer between 1 and 50.", nameof(Door));
@@ -107,7 +108,7 @@ namespace api.Models
             }
 
             // 3. Check for letter(-)digits format (e.g., A-1, B12, C-123)
-            if (Regex.IsMatch(Door, @"^[a-zA-ZæÆøØåÅ](-)?\d{1,3}$", RegexOptions.IgnoreCase))
+            if (Regex.IsMatch(Door, @"^[a-zA-ZæÆøØåÅ](-)?\d{1,3}$", RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(200)))
                 return;
 
             // 4. If none of the above, throw a format exception
@@ -126,10 +127,10 @@ namespace api.Models
 
         }
 
-        #region Funtion - return a fack address
+        #region Function - return a fake address
         public static Address GenerateFakeAddress()
         {
-            var random = new Random();
+            // var random = new Random();
 
             // Generate a random street name (5-12 characters, includes Danish letters)
             string street = GetRandomText(random.Next(5, 13), true);
@@ -197,7 +198,7 @@ namespace api.Models
                     .ToArray();
             }
 
-            var random = new Random();
+            // var random = new Random();
             var text = new char[length];
 
             // The first character is chosen from position 1 to avoid the space

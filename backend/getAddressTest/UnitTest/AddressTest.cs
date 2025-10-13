@@ -16,7 +16,7 @@ namespace getAddressTest.UnitTest
 
         }
 
-        #region Streed validation
+        #region Street validation
         [TestCase("Vesterbrogade")]
         [TestCase("Nørregade")]
         [TestCase("Åboulevard")]
@@ -165,7 +165,7 @@ namespace getAddressTest.UnitTest
         [TestCase(DoorType.Tv)]
         public void ValidateDoor_ValidDoor_DoesNotThrow(DoorType doorType)
         {
-            // randomly upper anḍ lower case
+            // randomly upper and lower case
             //arrange
             var rand = new Random();
             _address.Door = rand.Next(2) == 0 ? doorType.ToString().ToUpper() : doorType.ToString().ToLower();

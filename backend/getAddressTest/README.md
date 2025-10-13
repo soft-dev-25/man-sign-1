@@ -71,6 +71,6 @@
 
 To ensure that Class `Address.cs` is been tested thoroughly, I used the following tools to analyze the code coverage and identify untested paths:
 
-- **Visual Studio Code Coverage**: This tool provides a detailed report the lines of the code that were executing during the test.
+- **Visual Studio Code Coverage**: This tool provides a detailed report of the lines of the code that were executing during the test.
 - **ReSharper**: This tool analyzes the code and identifies untested methods and branches. And this suggests additional test cases to cover the path of the test.
 - **Live Unit Testing in Visual Studio**: This feature runs tests automatically as code is being written and provides real-time feedback on code coverage.
