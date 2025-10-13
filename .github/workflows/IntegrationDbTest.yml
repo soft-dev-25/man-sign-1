@@ -28,7 +28,7 @@ jobs:
                     --health-timeout=5s
                     --health-retries=5
         env:
-            ConnectionStrings__Default: "server=localhost;port=5432;database=GetAddress;userid=user;password=secret;SslMode=none;"
+            ConnectionStrings__Default: "server=localhost;port=5432;database=GetAddress;userid=user;password=secret;SslMode=Disable;"
             DOTNET_ROOT: /usr/share/dotnet
         steps:
             - name: Checkout Repository
@@ -46,7 +46,7 @@ jobs:
                   dotnet-version: "9.0.x"
             - name: Restore dependencies
               run: dotnet restore backend/getAddressTest/getAddressTest.csproj
-        
+
             - name: Build
               run: dotnet build backend/getAddressTest/getAddressTest.csproj --no-restore --configuration Release
 
