@@ -14,7 +14,7 @@ jobs:
         runs-on: ubuntu-latest
         services:
             postgres:
-                image: postgres:14
+                image: postgres:latest
                 env:
                     POSTGRES_DB: getaddressdb
                     POSTGRES_PASSWORD: ${{secrets.POSTGRES_PASSWORD}}
