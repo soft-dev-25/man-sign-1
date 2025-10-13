@@ -6,19 +6,21 @@ namespace api.Models
 
     public class Address
     {
-        public string? Street { get; init; }
-        public string? Number { get; init; }
-        public int? Floor { private get; init; }
+        public string? Street { get; set; }
+        public string? Number { get; set; }
+        public int? Floor { private get; set; }
+
         public string FloorDisplay =>
             Floor.HasValue ? Floor.Value.ToString()
             : FloorType == FloorType.St ? nameof(FloorType.St)
             : string.Empty;
 
-        public string? Door { get; init; }
+        public string? Door { get; set; }
         public string? PostalCode { get; set; }
         public string? TownName { get; set; }
 
-      
+        public FloorType FloorType { private get; set; } = FloorType.None;
+
 
         public override string ToString()
         {
@@ -30,19 +32,18 @@ namespace api.Models
 
 
 
-        private FloorType FloorType { get; set; } = FloorType.None;
         //private Doortype DoorType { get; } = Doortype.None;
 
         public void ValidateStreet()
         {
             if (string.IsNullOrWhiteSpace(Street) || string.IsNullOrEmpty(Street))
             {
-                throw new ArgumentNullException($"Street {Street} must be provided");
+                throw new ArgumentNullException(nameof(Street), $"Street {Street} must be provided");
             }
 
             if (!Street.All(char.IsLetter))
             {
-                throw new ArgumentException($"Street {Street} must only contain letters");
+                throw new ArgumentException($"Street {Street} must only contain letters", nameof(Street));
             }
 
         }
@@ -51,7 +52,7 @@ namespace api.Models
         {
             if (string.IsNullOrWhiteSpace(Number) || string.IsNullOrEmpty(Number))
             {
-                throw new ArgumentNullException($"Number {Number} must be provided");
+                throw new ArgumentNullException(nameof(Number), $"Number {Number} must be provided");
             }
 
             if (!Regex.IsMatch(Number, @"^[1-9][0-9]{0,2}[A-Z]?$"))
@@ -82,37 +83,40 @@ namespace api.Models
                     throw new ArgumentOutOfRangeException(nameof(Floor), "FloorNumber must be between 1 and 99.");
             }
 
-            if (FloorType != FloorType.None)
-                throw new ArgumentException("FloorType must be None when FloorNumber is set.");
+            //NOTE: During White box testing we found that this check is not needed.
+
+            //if (FloorType != FloorType.None)
+            //    throw new ArgumentException("FloorType must be None when FloorNumber is set.");
         }
 
         public void ValidateDoor()
         {
             if (string.IsNullOrWhiteSpace(Door) || string.IsNullOrEmpty(Door))
+                throw new ArgumentNullException(nameof(Door), "Door must be provided.");
+
+            // Setups to validate the door:
+
+            // 1. Check for "th", "mf", "tv" (case-insensitive)
+            if (Regex.IsMatch(Door, @"^(th|mf|tv)$", RegexOptions.IgnoreCase))
+                return;
+
+            // 2. Check for digits only (door number)
+            if (Regex.IsMatch(Door, @"^\d+$"))
             {
-                throw new ArgumentNullException($"Door {Door} must be provided");
+                if (!int.TryParse(Door, out int doorNumber) || doorNumber < 1 || doorNumber > 50)
+                    throw new ArgumentException("Door number must be an integer between 1 and 50.", nameof(Door));
+                return;
             }
 
-            // Valid values are "th", "mf", or "tv" (case insensitive), mean we can use Upper or lower case letters
-            if (!Regex.IsMatch(Door, @"^(th|mf|tv)$", RegexOptions.IgnoreCase))
-            {
-                throw new ArgumentException($"Door {Door} must be either 'th', 'mf', or 'tv'");
+            // 3. Check for letter(-)digits format (e.g., A-1, B12, C-123)
+            if (Regex.IsMatch(Door, @"^[a-zA-ZæÆøØåÅ](-)?\d{1,3}$", RegexOptions.IgnoreCase))
+                return;
 
-            }
-
-            if (!int.TryParse(Door, out int doorNumber) || doorNumber < 1 || doorNumber > 50)
-            {
-                throw new ArgumentException(" Door number must be an integer between 1 and 50.");
-
-            }
-
-            if (!Regex.IsMatch(Door, @"^[a-zA-ZæÆøØåÅ](-)?\d{1,3}$", RegexOptions.IgnoreCase))
-            {
-
-                throw new ArgumentException(
-                    $"Door {Door} must be a valid door format like 'A-1', 'B12', 'C-123', etc.");
-
-            }
+            // 4. If none of the above, throw a format exception
+            throw new ArgumentException(
+                $"Door {Door} must be either 'th', 'mf', 'tv', a number between 1 and 50, or a valid door format like 'A-1', 'B12', 'C-123', etc.",
+                nameof(Door)
+            );
 
         }
         public void Validate()
@@ -219,11 +223,3 @@ public enum FloorType
     None,
     St
 }
-//public enum Doortype
-//{
-//    None, // by default
-//    th,
-//    tv,
-//    mf
-
-//}
