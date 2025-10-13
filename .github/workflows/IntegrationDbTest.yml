@@ -29,7 +29,7 @@ jobs:
                     --health-retries=5
         env:
             ConnectionStrings__Default: "server=localhost;port=5433;database=GetAddress;userid=user;password=secret;SslMode=none;"
-
+            DOTNET_ROOT: /usr/share/dotnet
         steps:
             - name: Checkout Repository
               uses: actions/checkout@v4
