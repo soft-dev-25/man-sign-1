@@ -51,7 +51,7 @@ jobs:
             sudo docker image prune --all --force
 
             echo "Insert variables for building containers"
-            echo "POSTGRES_USER=$POSTGRES_USER" >> .env
+            echo "POSTGRES_USER=$POSTGRES_USER" > .env
             echo "POSTGRES_PW=$POSTGRES_PW" >> .env
 
             echo "Build containers"
