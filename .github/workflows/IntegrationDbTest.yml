@@ -47,4 +47,4 @@ jobs:
             - name: Restore dependencies
               run: dotnet restore backend/getAddressTest/getAddressTest.csproj
             - name: Build
-              run: dotnet build backend/getAddressTest/getAddressTest.csproj  --filter "TestCategory!=UnitTest" --no-restore --configuration Release
+              run: dotnet build backend/getAddressTest/getAddressTest.csproj  --filter "TestCategory=IntegrationDbTest" --no-restore --configuration Release
