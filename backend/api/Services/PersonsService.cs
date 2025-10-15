@@ -1,4 +1,5 @@
 using api.DBContext;
+using api.Models;
 using api.Models.DTOs;
 using api.Repositories;
 
@@ -90,7 +91,11 @@ public class PersonsService : IPersonsService
 
     public Task<PersonDTO> GetAddress()
     {
-        throw new NotImplementedException();
+        var postal = _personsRepository.GetPostal();
+        var fakeAddress = Address.GenerateFakeAddress();
+        fakeAddress.PostalCode = postal.PostalCode;
+        fakeAddress.TownName = postal.TownName;
+        return Task.FromResult(new PersonDTO() { Address = fakeAddress });
     }
 
     public async Task<PersonDTO> GetPhone()

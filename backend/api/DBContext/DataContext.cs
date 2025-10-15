@@ -1,7 +1,6 @@
 using api.Models;
 using DotNetEnv;
 using Microsoft.EntityFrameworkCore;
-using Npgsql.EntityFrameworkCore.PostgreSQL;
 
 namespace api.DBContext;
 
@@ -9,6 +8,7 @@ public class DataContext : DbContext
 {
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
+        if (optionsBuilder.IsConfigured) return;
         Env.TraversePath().Load();
 
         var connectionString = Environment.GetEnvironmentVariable("ConnectionString");
@@ -17,6 +17,16 @@ public class DataContext : DbContext
             .UseNpgsql(connectionString)
             .LogTo(Console.WriteLine, LogLevel.Information)
             .EnableDetailedErrors();
+    }
+
+    public DataContext(DbContextOptions<DataContext> options) : base(options)
+    {
+    
+    }
+
+    public DataContext()
+    {
+
     }
 
     public DbSet<Postal> Postals { get; set; }

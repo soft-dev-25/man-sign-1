@@ -1,0 +1,61 @@
+#######################################################################################################################################
+## Only trigger this workflow when changes are pushed to the specific branch
+## AND those changes affect specific important directories (Repositories, Services, DBContext, Migrations, or Integration/Unit Tests).
+## This helps avoid unnecessary workflow runs when unrelated files are changed,
+## Saving time and resources, since integration tests are resource-intensive and depend on these files.
+## Ensure that critical test and deployment jobs are only triggered when necessary to optimize CI/CD resources.
+#######################################################################################################################################
+name: Integration DB Test
+on:
+  workflow_call:
+  push:
+    branches: [feat/get-address] # feat/get-address branch for testing pipeline
+    paths:
+      - backend/api/Repositories/**
+      - backend/api/Services/**
+      - backend/api/DBContext/**
+      - backend/api/Migrations/**
+      - backend/getAddressTest/IntegrationTest/**
+
+jobs:
+  integration-tests:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        # For production, use the specific version of the db you are using in your db server
+        image: postgres:latest
+        env:
+          POSTGRES_USER: testuser
+          POSTGRES_PASSWORD: testpassword
+          POSTGRES_DB: GetAddress
+          POSTGRES_HOST_AUTH_METHOD: trust
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd="pg_isready -U testuser -d GetAddress"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+
+    env:
+      # This is the connection string your tests will use
+      ConnectionStrings__Default: "Server=localhost;Port=5432;Database=GetAddress;userid=testuser;password=testpassword;SslMode=Disable;"
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v5
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "9.0.x"
+
+      - name: Restore Dependencies
+        run: dotnet restore backend/getAddressTest/getAddressTest.csproj
+
+      - name: Build
+        run: dotnet build backend/getAddressTest/getAddressTest.csproj --configuration Release --no-restore
+
+      - name: Run Integration Tests
+        run: dotnet test backend/getAddressTest/getAddressTest.csproj --configuration Release --no-build --filter "TestCategory=IntegrationDbTest"

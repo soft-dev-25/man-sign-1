@@ -1,0 +1,34 @@
+name: Unit Tests - getAddress
+on:
+  workflow_call:
+  push:
+    branches: [feat/get-address] # feat/get-address branch for testing pipeline
+    paths:
+      - backend/api/Models/Address.cs
+      - backend/getAddressTest/UnitTest/**
+
+jobs:
+  UnitTestsGetAddress:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+
+      - name: Cache NuGet packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.nuget/packages
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-nuget-
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: "9.0.x"
+      - name: Restore dependencies
+        run: dotnet restore ./backend/getAddressTest/getAddressTest.csproj
+      - name: Build project
+        run: dotnet build --no-restore ./backend/getAddressTest/getAddressTest.csproj --configuration Release
+      - name: Run unit tests
+        run: dotnet test ./backend/getAddressTest/getAddressTest.csproj --filter "TestCategory=UnitTest" --configuration Release --no-build --logger "trx;LogFileName=test-results.trx" --results-directory ./TestResults

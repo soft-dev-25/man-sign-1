@@ -54,9 +54,26 @@ public class PersonsController : ControllerBase, IPersonsController
     }
 
     [HttpGet("address")]
-    public Task<IActionResult> GetAddress()
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult> GetAddress()
     {
-        throw new NotImplementedException();
+        try
+        {
+            var personDto = await _personsService.GetAddress();
+            if (personDto.Address == null)
+            {
+                return NotFound("Address not found");
+            }
+
+            return Ok(personDto.Address);
+        }
+        catch (Exception ex)
+        {
+            // Optionally log the exception here
+            return StatusCode(StatusCodes.Status500InternalServerError, "An unexpected error occurred.");
+        }
     }
 
     [HttpGet("phone")]
