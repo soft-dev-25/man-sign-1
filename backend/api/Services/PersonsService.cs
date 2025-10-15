@@ -7,9 +7,9 @@ namespace api.Services;
 
 public class PersonsService : IPersonsService
 {
-    private readonly IPersonsRepository _personsRepository;
     private readonly DataContext _context;
     private readonly IJsonService _jsonService;
+    private readonly IPersonsRepository _personsRepository;
 
     public PersonsService(
         IPersonsRepository personsRepository,
@@ -26,27 +26,67 @@ public class PersonsService : IPersonsService
     {
         var person = await _jsonService.GetRandomPersonFromJson();
         person.CreateCpr();
-        return new PersonDTO() { Cpr = person.Cpr };
+        return new PersonDTO { Cpr = person.Cpr };
     }
 
-    public Task<PersonDTO> GetNameAndGender()
+    public async Task<PersonDTO> GetNameAndGender()
     {
-        throw new NotImplementedException();
+        var person = await _jsonService.GetRandomPersonFromJson();
+        return new PersonDTO
+        {
+            FirstName = person.FirstName,
+            LastName = person.LastName,
+            Gender = person.Gender,
+        };
     }
 
-    public Task<PersonDTO> GetNameAndGenderAndDoB()
+    public async Task<PersonDTO> GetNameAndGenderAndDoB()
     {
-        throw new NotImplementedException();
+        var person = await _jsonService.GetRandomPersonFromJson();
+        person.CreateBirthdate();
+
+        var dto = new PersonDTO
+        {
+            FirstName = person.FirstName,
+            LastName = person.LastName,
+            Gender = person.Gender,
+        };
+        dto.setBirthDate(person.BirthDate);
+
+        return dto;
     }
 
-    public Task<PersonDTO> GetCprAndNameAndGender()
+    public async Task<PersonDTO> GetCprAndNameAndGender()
     {
-        throw new NotImplementedException();
+        var person = await _jsonService.GetRandomPersonFromJson();
+        person.CreateCpr();
+
+        var dto = new PersonDTO
+        {
+            FirstName = person.FirstName,
+            LastName = person.LastName,
+            Gender = person.Gender,
+            Cpr = person.Cpr,
+        };
+
+        return dto;
     }
 
-    public Task<PersonDTO> GetCprAndNameAndGenderAndDoB()
+    public async Task<PersonDTO> GetCprAndNameAndGenderAndDoB()
     {
-        throw new NotImplementedException();
+        var person = await _jsonService.GetRandomPersonFromJson();
+        person.CreateCpr();
+
+        var dto = new PersonDTO
+        {
+            FirstName = person.FirstName,
+            LastName = person.LastName,
+            Gender = person.Gender,
+            Cpr = person.Cpr,
+        };
+        dto.setBirthDate(person.BirthDate);
+
+        return dto;
     }
 
     public Task<PersonDTO> GetAddress()
@@ -58,9 +98,11 @@ public class PersonsService : IPersonsService
         return Task.FromResult(new PersonDTO() { Address = fakeAddress });
     }
 
-    public Task<PersonDTO> GetPhone()
+    public async Task<PersonDTO> GetPhone()
     {
-        throw new NotImplementedException();
+        var person = await _jsonService.GetRandomPersonFromJson();
+        person.CreatePhoneNumber();
+        return new PersonDTO { PhoneNumber = person.PhoneNumber };
     }
 
     public Task<List<PersonDTO>> GetPersons(int? count = 1)

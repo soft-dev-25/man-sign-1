@@ -1,4 +1,5 @@
 using api.ExceptionHandlers;
+using api.Shared.Constants;
 
 namespace api.Models.DTOs;
 public class Person
@@ -11,13 +12,11 @@ public class Person
 
     public string? Gender { get; set; }
 
-    public string? BirthDate { get; set; }
+    public DateOnly? BirthDate { get; set; }
 
     public Address? Address { get; set; }
 
     public string? PhoneNumber { get; set; }
-
-    public Person() { }
 
     public void CreateCpr()
     {
@@ -25,17 +24,20 @@ public class Person
         {
             throw new BadRequestException($"Gender {Gender} is unknown");
         }
+
         var random = new Random();
 
-        CreateBirthdate();
+        if (BirthDate == null)
+        {
+            CreateBirthdate();
+        }
 
-        var dateParts = BirthDate!.Split('-');
-        var year = dateParts[0];
-        var month = dateParts[1];
-        var day = dateParts[2];
+        var year = BirthDate.Value.Year;
+        var month = BirthDate.Value.Month;
+        var day = BirthDate.Value.Day;
 
         // Get last 2 digits of year
-        var yearTwoDigits = year.Substring(2);
+        var yearTwoDigits = year.ToString().Substring(2);
 
         // 0-9
         var digitOne = random.Next(0, 10);
@@ -54,10 +56,10 @@ public class Person
             finalDigit = oddDigits[random.Next(oddDigits.Length)];
         }
 
-        Cpr = $"{day}{month}{yearTwoDigits}{digitOne}{digitTwo}{digitThree}{finalDigit}";
+        Cpr = $"{day:D2}{month:D2}{yearTwoDigits}{digitOne}{digitTwo}{digitThree}{finalDigit}";
     }
 
-    private void CreateBirthdate()
+    public void CreateBirthdate()
     {
         var random = new Random();
 
@@ -65,7 +67,7 @@ public class Person
         var year = random.Next(1900, DateTime.Now.Year);
         // 1-12
         var month = random.Next(1, 13);
-        var day = 1;
+        int day;
 
         if (new List<int>(new[] { 1, 3, 5, 7, 8, 10, 12 }).Contains(month))
         {
@@ -84,6 +86,24 @@ public class Person
             day = random.Next(1, isLeapYear ? 30 : 29);
         }
 
-        BirthDate = $"{year}-{month:D2}-{day:D2}";
+        BirthDate = new DateOnly(year, month, day);
+    }
+
+    public void CreatePhoneNumber()
+    {
+        var phonePrefixes = PhoneNumberData.AllowedPrefixes;
+
+        var random = new Random();
+
+        var phoneNumber = phonePrefixes[random.Next(phonePrefixes.Count)];
+
+        var numbersToAdd = 8 - phoneNumber.Length;
+
+        for (var i = 0; i < numbersToAdd; i++)
+        {
+            phoneNumber += random.Next(0, 10);
+        }
+
+        PhoneNumber = phoneNumber;
     }
 }
