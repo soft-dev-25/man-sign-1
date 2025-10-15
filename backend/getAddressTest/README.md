@@ -13,7 +13,7 @@
 | Equivalence Partitioning | Valid Floor        | 2, 50, 98, "st"                                                             |
 |                          | Invalid Floor      | 0, 100, -1, null (when FloorType != St)                                     |
 | Equivalence Partitioning | Valid Door         | "th", "mf", "tv", "2", "49", "A-1", "A-12", A-123, "B1" ,"B12", "B123,"æ-7" |
-|                          | Invalid Door       | "0", "51", "door",Null, " ", "", "A--1", "A-1234", "AB-12", "A12B", "A_12"          |
+|                          | Invalid Door       | "0", "51", "door",Null, " ", "", "A--1", "A-1234", "AB-12", "A12B", "A_12"  |
 | Boundary Value Analysis  | Number Lower Bound | "1", "1B"                                                                   |
 |                          | Number Upper Bound | "999", "999A"                                                               |
 | Boundary Value Analysis  | Floor Lower Bound  | 1                                                                           |
@@ -37,17 +37,17 @@
 
 ## Decision table for the Door property validation based on your C# logic
 
-| Door (value) | Expected Result | Reason                                         |
-|---------------|-----------------|------------------------------------------------|
-| th            | Valid           | Typical valid value                            |
-| mf            | Valid           | Typical valid value                            |
-| tv            | Valid           | Typical valid value                            |
-| 1             | Valid           | Lower boundary                                 |
-| 50            | Valid           | Upper boundary                                 |
-| 0             | Invalid         | Below lower boundary                           |
-| 51            | Invalid         | Above upper boundary                           |
-| A-1           | Valid           | Typical valid value                            |
-| A-1234        | Invalid         | Above upper boundary                           |
+| Door (value) | Expected Result | Reason               |
+|--------------|-----------------|----------------------|
+| th           | Valid           | Typical valid value  |
+| mf           | Valid           | Typical valid value  |
+| tv           | Valid           | Typical valid value  |
+| 1            | Valid           | Lower boundary       |
+| 50           | Valid           | Upper boundary       |
+| 0            | Invalid         | Below lower boundary |
+| 51           | Invalid         | Above upper boundary |
+| A-1          | Valid           | Typical valid value  |
+| A-1234       | Invalid         | Above upper boundary |
 
 ## List of test cases
 

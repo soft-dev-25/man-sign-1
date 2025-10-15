@@ -8,7 +8,8 @@ public class DataContext : DbContext
 {
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        if (optionsBuilder.IsConfigured) return;
+        if (optionsBuilder.IsConfigured)
+            return;
         Env.TraversePath().Load();
 
         var connectionString = Environment.GetEnvironmentVariable("ConnectionString");
@@ -19,15 +20,10 @@ public class DataContext : DbContext
             .EnableDetailedErrors();
     }
 
-    public DataContext(DbContextOptions<DataContext> options) : base(options)
-    {
-    
-    }
+    public DataContext(DbContextOptions<DataContext> options)
+        : base(options) { }
 
-    public DataContext()
-    {
-
-    }
+    public DataContext() { }
 
     public DbSet<Postal> Postals { get; set; }
 }

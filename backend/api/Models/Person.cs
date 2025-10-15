@@ -2,6 +2,7 @@ using api.ExceptionHandlers;
 using api.Shared.Constants;
 
 namespace api.Models.DTOs;
+
 public class Person
 {
     public string? Cpr { get; set; }

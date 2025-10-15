@@ -16,10 +16,14 @@ namespace getAddressTest.IntegrationTest
         public void Setup()
         {
             Env.TraversePath().Load();
-            var connectionString = Environment.GetEnvironmentVariable("ConnectionStrings__Default")!;
+            var connectionString = Environment.GetEnvironmentVariable(
+                "ConnectionStrings__Default"
+            )!;
             if (string.IsNullOrEmpty(connectionString))
             {
-                throw new InvalidOperationException("Connection string is not set in environment variables.");
+                throw new InvalidOperationException(
+                    "Connection string is not set in environment variables."
+                );
             }
 
             // Configure DbContext to use PostgresSQL
@@ -45,8 +49,8 @@ namespace getAddressTest.IntegrationTest
 
             //Initialize the repository with the test context
             _personsRepository = new PersonsRepository(_context);
-
         }
+
         [Test]
         public void GetPostal_ReturnsSeededPostal()
         {

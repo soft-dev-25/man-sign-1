@@ -72,7 +72,10 @@ public class PersonsController : ControllerBase, IPersonsController
         catch (Exception ex)
         {
             // Optionally log the exception here
-            return StatusCode(StatusCodes.Status500InternalServerError, "An unexpected error occurred.");
+            return StatusCode(
+                StatusCodes.Status500InternalServerError,
+                "An unexpected error occurred."
+            );
         }
     }
 

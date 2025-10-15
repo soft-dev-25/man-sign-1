@@ -21,6 +21,7 @@ namespace api.Models
         public string? TownName { get; set; }
 
         public FloorType FloorType { private get; set; } = FloorType.None;
+
         public override string ToString()
         {
             var floorPart = Floor.HasValue ? $"{Floor}." : ""; // e.g. "3."
@@ -29,38 +30,50 @@ namespace api.Models
             return $"{Street} {Number}, {floorPart}{doorPart}\n{PostalCode} {TownName}";
         }
 
-
-
         //private Doortype DoorType { get; } = Doortype.None;
 
         public void ValidateStreet()
         {
             if (string.IsNullOrWhiteSpace(Street) || string.IsNullOrEmpty(Street))
             {
-                throw new ArgumentNullException(nameof(Street), $"Street {Street} must be provided");
+                throw new ArgumentNullException(
+                    nameof(Street),
+                    $"Street {Street} must be provided"
+                );
             }
 
             if (!Street.All(char.IsLetter))
             {
-                throw new ArgumentException($"Street {Street} must only contain letters", nameof(Street));
+                throw new ArgumentException(
+                    $"Street {Street} must only contain letters",
+                    nameof(Street)
+                );
             }
-
         }
 
         public void ValidateNumber()
         {
             if (string.IsNullOrWhiteSpace(Number) || string.IsNullOrEmpty(Number))
             {
-                throw new ArgumentNullException(nameof(Number), $"Number {Number} must be provided");
+                throw new ArgumentNullException(
+                    nameof(Number),
+                    $"Number {Number} must be provided"
+                );
             }
 
-            if (!Regex.IsMatch(Number, @"^[1-9][0-9]{0,2}[A-Z]?$",RegexOptions.None, TimeSpan.FromMilliseconds(200)))
+            if (
+                !Regex.IsMatch(
+                    Number,
+                    @"^[1-9][0-9]{0,2}[A-Z]?$",
+                    RegexOptions.None,
+                    TimeSpan.FromMilliseconds(200)
+                )
+            )
             {
                 throw new ArgumentException(
                     $"Invalid number format: '{Number}'. It must be 1 to 3 digits (not starting with 0), optionally followed by a single uppercase letter. Examples: '7', '42B', '123'."
                 );
             }
-
         }
 
         public void ValidateFloor()
@@ -68,18 +81,25 @@ namespace api.Models
             if (FloorType.Equals(FloorType.St))
             {
                 if (Floor is not null)
-                    throw new ArgumentException("Cannot set both FloorType as 'st' and FloorNumber.");
+                    throw new ArgumentException(
+                        "Cannot set both FloorType as 'st' and FloorNumber."
+                    );
                 return;
             }
 
             switch (Floor)
             {
                 case null:
-                    throw new ArgumentNullException(nameof(Floor),
-                        "Either FloorType must be 'st' or FloorNumber must be set.");
+                    throw new ArgumentNullException(
+                        nameof(Floor),
+                        "Either FloorType must be 'st' or FloorNumber must be set."
+                    );
                 case < 1:
                 case > 99:
-                    throw new ArgumentOutOfRangeException(nameof(Floor), "FloorNumber must be between 1 and 99.");
+                    throw new ArgumentOutOfRangeException(
+                        nameof(Floor),
+                        "FloorNumber must be between 1 and 99."
+                    );
             }
 
             //NOTE: During White box testing we found that this check is not needed.
@@ -96,19 +116,36 @@ namespace api.Models
             // Setups to validate the door:
 
             // 1. Check for "th", "mf", "tv" (case-insensitive)
-            if (Regex.IsMatch(Door, @"^(th|mf|tv)$", RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(200)))
+            if (
+                Regex.IsMatch(
+                    Door,
+                    @"^(th|mf|tv)$",
+                    RegexOptions.IgnoreCase,
+                    TimeSpan.FromMilliseconds(200)
+                )
+            )
                 return;
 
             // 2. Check for digits only (door number)
             if (Regex.IsMatch(Door, @"^\d+$", RegexOptions.None, TimeSpan.FromMilliseconds(200)))
             {
                 if (!int.TryParse(Door, out int doorNumber) || doorNumber < 1 || doorNumber > 50)
-                    throw new ArgumentException("Door number must be an integer between 1 and 50.", nameof(Door));
+                    throw new ArgumentException(
+                        "Door number must be an integer between 1 and 50.",
+                        nameof(Door)
+                    );
                 return;
             }
 
             // 3. Check for letter(-)digits format (e.g., A-1, B12, C-123)
-            if (Regex.IsMatch(Door, @"^[a-zA-ZæÆøØåÅ](-)?\d{1,3}$", RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(200)))
+            if (
+                Regex.IsMatch(
+                    Door,
+                    @"^[a-zA-ZæÆøØåÅ](-)?\d{1,3}$",
+                    RegexOptions.IgnoreCase,
+                    TimeSpan.FromMilliseconds(200)
+                )
+            )
                 return;
 
             // 4. If none of the above, throw a format exception
@@ -116,15 +153,14 @@ namespace api.Models
                 $"Door {Door} must be either 'th', 'mf', 'tv', a number between 1 and 50, or a valid door format like 'A-1', 'B12', 'C-123', etc.",
                 nameof(Door)
             );
-
         }
+
         public void Validate()
         {
             ValidateStreet();
             ValidateNumber();
             ValidateFloor();
             ValidateDoor();
-
         }
 
         #region Function - return a fake address
@@ -133,6 +169,7 @@ namespace api.Models
             // Generates a random integer between x and y
             return Random.Shared.Next(x, y);
         }
+
         private static Random GetRandomShared()
         {
             return Random.Shared;
@@ -155,8 +192,8 @@ namespace api.Models
             }
 
             // Generate a random floor (null or 1-10) with 70% chance of being null and if null return FloorType = "st"
-            int? floor = GetRandomShared().NextDouble() < 0.7 ? GetRandomShared().Next(1, 11) : null;
-
+            int? floor =
+                GetRandomShared().NextDouble() < 0.7 ? GetRandomShared().Next(1, 11) : null;
 
             // Generate a random door (valid formats)
             string[] doorOptions = ["th", "mf", "tv"];
@@ -171,15 +208,16 @@ namespace api.Models
                     door = GetRandomShared().Next(1, 51).ToString();
                     break;
                 default:
-                    {
-                        // Letter (upper/lower/Danish), optional dash, 1-3 digits
-                        const string letters = "abcdefghijklmnopqrstuvwxyzæøåABCDEFGHIJKLMNOPQRSTUVWXYZÆØÅ";
-                        char letter = letters[GetRandomShared().Next(letters.Length)];
-                        string dash = GetRandomShared().NextDouble() < 0.5 ? "-" : "";
-                        int digits = GetRandomShared().Next(1, 1000);
-                        door = $"{letter}{dash}{digits}";
-                        break;
-                    }
+                {
+                    // Letter (upper/lower/Danish), optional dash, 1-3 digits
+                    const string letters =
+                        "abcdefghijklmnopqrstuvwxyzæøåABCDEFGHIJKLMNOPQRSTUVWXYZÆØÅ";
+                    char letter = letters[GetRandomShared().Next(letters.Length)];
+                    string dash = GetRandomShared().NextDouble() < 0.5 ? "-" : "";
+                    int digits = GetRandomShared().Next(1, 1000);
+                    door = $"{letter}{dash}{digits}";
+                    break;
+                }
             }
             return new Address
             {
@@ -187,25 +225,72 @@ namespace api.Models
                 Number = number,
                 Floor = floor,
                 Door = door,
-                FloorType = floor == null ? FloorType.St : FloorType.None
-
+                FloorType = floor == null ? FloorType.St : FloorType.None,
             };
         }
+
         private static string GetRandomText(int length = 1, bool includeDanishCharacters = true)
         {
             char[] validCharacters =
             [
-                ' ', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q',
-                'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F',
-                'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
-                'Y', 'Z'
+                ' ',
+                'a',
+                'b',
+                'c',
+                'd',
+                'e',
+                'f',
+                'g',
+                'h',
+                'i',
+                'j',
+                'k',
+                'l',
+                'm',
+                'n',
+                'o',
+                'p',
+                'q',
+                'r',
+                's',
+                't',
+                'u',
+                'v',
+                'w',
+                'x',
+                'y',
+                'z',
+                'A',
+                'B',
+                'C',
+                'D',
+                'E',
+                'F',
+                'G',
+                'H',
+                'I',
+                'J',
+                'K',
+                'L',
+                'M',
+                'N',
+                'O',
+                'P',
+                'Q',
+                'R',
+                'S',
+                'T',
+                'U',
+                'V',
+                'W',
+                'X',
+                'Y',
+                'Z',
             ];
 
             if (includeDanishCharacters)
             {
-                validCharacters = validCharacters
-                    .Concat(['æ', 'ø', 'å', 'Æ', 'Ø', 'Å'])
-                    .ToArray();
+                validCharacters = validCharacters.Concat(['æ', 'ø', 'å', 'Æ', 'Ø', 'Å']).ToArray();
             }
 
             // var random = new Random();
@@ -221,15 +306,11 @@ namespace api.Models
             return new string(text);
         }
         #endregion
-
     }
+
     public enum FloorType
-{
-    None,
-    St
+    {
+        None,
+        St,
+    }
 }
-}
-
-
-
-
