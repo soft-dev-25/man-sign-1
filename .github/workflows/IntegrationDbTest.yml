@@ -1,17 +1,16 @@
+#######################################################################################################################################
+## Only trigger this workflow when changes are pushed to the specific branch
+## AND those changes affect specific important directories (Repositories, Services, DBContext, Migrations, or Integration/Unit Tests).
+## This helps avoid unnecessary workflow runs when unrelated files are changed,
+## Saving time and resources, since integration tests are resource-intensive and depend on these files.
+## Ensure that critical test and deployment jobs are only triggered when necessary to optimize CI/CD resources.
+#######################################################################################################################################
 name: Integration DB Test
 on:
   workflow_call:
   push:
-    branches: [ feat/get-address] # feat/get-address branch for testing pipeline
-
-  #######################################################################################################################################
-  ## Only trigger this workflow when changes are pushed to the specific branch
-  ## AND those changes affect specific important directories (Repositories, Services, DBContext, Migrations, or Integration/Unit Tests).
-  ## This helps avoid unnecessary workflow runs when unrelated files are changed,
-  ## Saving time and resources, since integration tests are resource-intensive and depend on these files.
-  ## Ensure that critical test and deployment jobs are only triggered when necessary to optimize CI/CD resources. 
-  #######################################################################################################################################
-    paths: 
+    branches: [feat/get-address] # feat/get-address branch for testing pipeline
+    paths:
       - backend/api/Repositories/**
       - backend/api/Services/**
       - backend/api/DBContext/**
