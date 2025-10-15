@@ -4,6 +4,9 @@ on:
   pull_request:
 
 jobs:
-  call-tests:
-    name: Run Unit and Integration Tests in Backend
-    uses: ./.github/workflows/unit_and_integration_test.yml
+  unit-tests:
+    name: Run Unit Tests
+    uses: ./.github/workflows/UnitTest.yml
+  integration-db-tests:
+    name: Run Integration DB Tests
+    uses: ./.github/workflows/IntegrationDbTest.yml

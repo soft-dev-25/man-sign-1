@@ -1,17 +1,19 @@
 name: Unit Tests - getAddress
 on:
+  workflow_call:
   push:
-    branches: [feat/get-address]
+    branches: [feat/get-address] # feat/get-address branch for testing pipeline
     paths:
       - backend/api/Models/Address.cs
       - backend/getAddressTest/UnitTest/**
+  
 
 jobs:
   UnitTestsGetAddress:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Cache NuGet packages
         uses: actions/cache@v4
@@ -22,7 +24,7 @@ jobs:
             ${{ runner.os }}-nuget-
 
       - name: Setup .NET
-        uses: actions/setup-dotnet@v4
+        uses: actions/setup-dotnet@v5
         with:
           dotnet-version: "9.0.x"
       - name: Restore dependencies

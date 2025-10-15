@@ -1,8 +1,17 @@
 name: Integration DB Test
 on:
+  workflow_call:
   push:
-    branches: [feat/get-address]
-    paths:
+    branches: [ feat/get-address] # feat/get-address branch for testing pipeline
+
+  #######################################################################################################################################
+  ## Only trigger this workflow when changes are pushed to the specific branch
+  ## AND those changes affect specific important directories (Repositories, Services, DBContext, Migrations, or Integration/Unit Tests).
+  ## This helps avoid unnecessary workflow runs when unrelated files are changed,
+  ## Saving time and resources, since integration tests are resource-intensive and depend on these files.
+  ## Ensure that critical test and deployment jobs are only triggered when necessary to optimize CI/CD resources. 
+  #######################################################################################################################################
+    paths: 
       - backend/api/Repositories/**
       - backend/api/Services/**
       - backend/api/DBContext/**
@@ -15,6 +24,7 @@ jobs:
 
     services:
       postgres:
+        # For production, use the specific version of the db you are using in your db server
         image: postgres:latest
         env:
           POSTGRES_USER: testuser
@@ -35,10 +45,10 @@ jobs:
 
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v5
 
       - name: Setup .NET
-        uses: actions/setup-dotnet@v3
+        uses: actions/setup-dotnet@v4
         with:
           dotnet-version: "9.0.x"
 
