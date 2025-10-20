@@ -14,7 +14,7 @@ Run `npm run unit-test`
 
 ### Integration tests
 
-Run `npm integration-test`
+Run `npm run integration-test`
 
 ## Endpoints
 
