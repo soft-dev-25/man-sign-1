@@ -6,7 +6,7 @@ Make sure to setup the `.env` in the root of the project.
 
 Run `docker compose up -d`
 
-## How to test 
+## How to test
 
 ### Unit tests
 
