@@ -3,7 +3,7 @@
 # Start Docker containers in detached mode
 docker-compose -f scripts/integration/docker-compose.dbtest.yml up -d
 
-# Set connectionString for databse integration test
+# Set connectionString for database integration test
 export ConnectionStrings__Default="server=localhost;port=5433;database=GetAddress;userid=user;password=secret"
 
 # Run integration tests
