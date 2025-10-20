@@ -72,9 +72,11 @@ public class PersonsController : ControllerBase, IPersonsController
     }
 
     [HttpGet("person")]
-    public Task<IActionResult> GetSinglePerson()
+    public async Task<IActionResult> GetSinglePerson()
     {
-        throw new NotImplementedException();
+        var person = await _personsService.GetPerson();
+
+        return Ok(person);
     }
 
     [HttpGet("persons")]

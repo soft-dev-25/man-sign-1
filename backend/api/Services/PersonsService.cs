@@ -114,6 +114,17 @@ public class PersonsService : IPersonsService
         return new PersonDTO { PhoneNumber = person.PhoneNumber };
     }
 
+    public async Task<PersonDTO> GetPerson()
+    {
+        var personDto = await GetCprAndNameAndGender();
+        var phoneDto = await GetPhone();
+        // var addressDto = await GetAddress(); // will throw until implemented
+
+        // personDto.Address = addressDto.Address;
+        personDto.PhoneNumber = phoneDto.PhoneNumber;
+
+        return personDto;
+    }
     public Task<List<PersonDTO>> GetPersons(int? count = 1)
     {
         throw new NotImplementedException();

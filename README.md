@@ -137,5 +137,33 @@ Run `npm run e2e-test`
 </tr>
 </td>
 </tr>
+
+<tr>
+<td> <code>/person</code> </td>
+<td> Combines all the information from the other endpoints to return a "complete" person </td>
+<td>
+
+```json
+{
+    "CPR": "0107832911",
+    "firstName": "Michelle W.",
+    "lastName": "Henriksen",
+    "gender": "female",
+    "birthDate": "1983-07-01",
+    "address": {
+        "street": "GYØVCoØMeceOjøtÆgvYrøQQDascNFCHArnSNrxub",
+        "number": "521",
+        "floor": 74,
+        "door": "tv",
+        "postal_code": "8670",
+        "town_name": "Låsby"
+    },
+    "phoneNumber": "58676658"
+}
+```
+
+</td>
+</tr>
+
 </table>
 
