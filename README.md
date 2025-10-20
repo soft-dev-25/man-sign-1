@@ -2,31 +2,19 @@
 
 ## How to Start the Project
 
-To start the project, use the provided `start-up.sh` script. This script will:
+Make sure to setup the `.env` in the root of the project.
 
-1. Start all required Docker containers in the background using Docker Compose.
-2. Run the project's tests with `npm test`.
+Run `docker compose up -d`
 
-### Steps
+## How to test 
 
-1. Make sure you have Docker Desktop running on your machine.
-2. Give execute permission to the script (only needed once) using ``git bash``:
+### Unit tests
 
-   ```bash
-      chmod +x start-up.sh
-   ```
+Run `npm run unit-test`
 
-3. Run the script in `git bash`:
+### Integration tests
 
-   ```bash
-      ./start-up.sh
-   ```
-
-This will set up your environment and run the tests automatically.
-
-This is the repository for the mandatory assignment #1 in the Test Class.
-
-Make sure to run `npm install` after cloning this repository to use Husky's pre-commit hook.
+Run `npm integration-test`
 
 ## Endpoints
 

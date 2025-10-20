@@ -6,6 +6,7 @@ using NSubstitute;
 
 namespace getNameAndGenderTests;
 
+[Trait("TestCategory", "IntegrationTest")]
 public class IntegrationTests
 {
     // Integration Test, since we are reading from a file system

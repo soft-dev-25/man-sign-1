@@ -4,11 +4,13 @@ on:
   push:
     branches:
       - main
+
 jobs:
   unit-tests:
     name: Run Unit Tests
-    uses: ./.github/workflows/UnitTest.yml
+    uses: ./.github/workflows/unit_test.yml
+
   integration-db-tests:
     name: Run Integration DB Tests
     needs: unit-tests
-    uses: ./.github/workflows/IntegrationDbTest.yml
+    uses: ./.github/workflows/integration_test.yml
