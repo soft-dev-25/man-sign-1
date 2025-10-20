@@ -57,7 +57,6 @@ namespace getAddressTest.UnitTest
         [TestCase("500B")] // middle value with letter
         [TestCase("998A")]
         [TestCase("999A")] // upper boundary with letter
-        //[TestCase("1-Æ")]   //TODO : fix this test case
         public void ValidateNumber_ValidNumber_DoesNotThrow(string number)
         {
             //arrange
