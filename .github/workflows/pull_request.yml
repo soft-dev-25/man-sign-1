@@ -6,8 +6,9 @@ on:
 jobs:
   unit-tests:
     name: Run Unit Tests
-    uses: ./.github/workflows/UnitTest.yml
-  integration-db-tests:
-    name: Run Integration DB Tests
+    uses: ./.github/workflows/unit_test.yml
+
+  integration-tests:
+    name: Run Integration Tests
     needs: unit-tests
-    uses: ./.github/workflows/IntegrationDbTest.yml
+    uses: ./.github/workflows/integration_test.yml

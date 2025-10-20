@@ -1,1 +1,17 @@
-npm test
+#!/bin/sh
+
+echo "
+╔═══════════════════════════════════╗
+║      RUNNING UNIT TESTS           ║
+╚═══════════════════════════════════╝
+"
+
+npm run unit-test
+
+echo "
+╔═══════════════════════════════════╗
+║   RUNNING INTEGRATION TESTS       ║
+╚═══════════════════════════════════╝
+"
+
+npm run integration-test
