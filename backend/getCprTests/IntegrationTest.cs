@@ -5,6 +5,7 @@ using NSubstitute;
 
 namespace getCprTests;
 
+[Trait("TestCategory", "IntegrationTest")]
 public class IntegrationTest
 {
     // Integration Test, since we are reading from a file system

@@ -234,18 +234,6 @@ namespace getAddressTest.UnitTest
             }
         }
         #endregion
-
-        //#region Validate all Method
-        //[Test]
-        //public void ValidateAll_ValidAddress_DoesNotThrow()
-        //{
-        //    // arrange
-        //   _address = Address.GenerateFakeAddress();
-        //    // act & assert
-        //    Assert.DoesNotThrow(() => _address.Validate());
-        //}
-
-        //#endregion
     }
 }
 

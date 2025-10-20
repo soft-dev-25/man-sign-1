@@ -208,16 +208,16 @@ namespace api.Models
                     door = GetRandomShared().Next(1, 51).ToString();
                     break;
                 default:
-                {
-                    // Letter (upper/lower/Danish), optional dash, 1-3 digits
-                    const string letters =
-                        "abcdefghijklmnopqrstuvwxyzæøåABCDEFGHIJKLMNOPQRSTUVWXYZÆØÅ";
-                    char letter = letters[GetRandomShared().Next(letters.Length)];
-                    string dash = GetRandomShared().NextDouble() < 0.5 ? "-" : "";
-                    int digits = GetRandomShared().Next(1, 1000);
-                    door = $"{letter}{dash}{digits}";
-                    break;
-                }
+                    {
+                        // Letter (upper/lower/Danish), optional dash, 1-3 digits
+                        const string letters =
+                            "abcdefghijklmnopqrstuvwxyzæøåABCDEFGHIJKLMNOPQRSTUVWXYZÆØÅ";
+                        char letter = letters[GetRandomShared().Next(letters.Length)];
+                        string dash = GetRandomShared().NextDouble() < 0.5 ? "-" : "";
+                        int digits = GetRandomShared().Next(1, 1000);
+                        door = $"{letter}{dash}{digits}";
+                        break;
+                    }
             }
             return new Address
             {
