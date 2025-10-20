@@ -9,4 +9,5 @@ jobs:
     uses: ./.github/workflows/UnitTest.yml
   integration-db-tests:
     name: Run Integration DB Tests
+    needs: unit-tests
     uses: ./.github/workflows/IntegrationDbTest.yml
