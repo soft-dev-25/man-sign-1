@@ -18,7 +18,7 @@ jobs:
   deploy-containers:
     name: Deploy application to VM
     runs-on: ubuntu-latest
-    needs: 
+    needs:
       - unit-tests
       - integration-db-tests
     environment: secrets
