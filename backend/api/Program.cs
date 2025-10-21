@@ -31,6 +31,9 @@ builder.Services.AddOpenApi();
 
 var app = builder.Build();
 
+app.UseCors("AllowFrontend");
+
+
 app.UseExceptionHandler();
 
 // Configure the HTTP request pipeline.
@@ -39,7 +42,11 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
 }
 
-app.UseHttpsRedirection();
+var httpsPort = app.Configuration["ASPNETCORE_HTTPS_PORT"];
+if (!string.IsNullOrEmpty(httpsPort))
+{
+    app.UseHttpsRedirection();
+}
 
 app.UseAuthorization();
 
