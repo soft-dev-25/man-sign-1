@@ -26,7 +26,7 @@ public class PersonDTO
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string? PhoneNumber { get; set; }
 
-    public void setBirthDate(DateOnly? birthdate)
+    public void SetBirthDate(DateOnly? birthdate)
     {
         BirthDate = birthdate?.ToString("yyyy-MM-dd");
     }
