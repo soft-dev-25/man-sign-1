@@ -51,7 +51,7 @@ public class PersonsService : IPersonsService
             LastName = person.LastName,
             Gender = person.Gender,
         };
-        dto.setBirthDate(person.BirthDate);
+        dto.SetBirthDate(person.BirthDate);
 
         return dto;
     }
@@ -84,18 +84,27 @@ public class PersonsService : IPersonsService
             Gender = person.Gender,
             Cpr = person.Cpr,
         };
-        dto.setBirthDate(person.BirthDate);
+        dto.SetBirthDate(person.BirthDate);
 
         return dto;
     }
 
-    public Task<PersonDTO> GetAddress()
+    public async Task<AddressDTO> GetAddress()
     {
-        var postal = _personsRepository.GetPostal();
-        var fakeAddress = Address.GenerateFakeAddress();
-        fakeAddress.PostalCode = postal.PostalCode;
-        fakeAddress.TownName = postal.TownName;
-        return Task.FromResult(new PersonDTO() { Address = fakeAddress });
+        var postal = await _personsRepository.GetPostal();
+        var address = Address.GenerateFakeAddress();
+        
+        var dto = new AddressDTO
+        {
+            Door = address.Door,
+            Number = address.Number,
+            Street = address.Street,
+            TownName = postal.TownName,
+            PostalCode = postal.PostalCode
+        };
+        dto.SetFloor(address.Floor);
+        
+        return dto;
     }
 
     public async Task<PersonDTO> GetPhone()

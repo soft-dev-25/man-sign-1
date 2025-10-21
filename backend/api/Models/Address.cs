@@ -9,28 +9,11 @@ namespace api.Models
         //  private static readonly Random random = new Random();
         public string? Street { get; set; }
         public string? Number { get; set; }
-        public int? Floor { private get; set; }
-
-        public string FloorDisplay =>
-            Floor.HasValue ? Floor.Value.ToString()
-            : FloorType == FloorType.St ? nameof(FloorType.St)
-            : string.Empty;
-
+        public int? Floor { get; set; }
         public string? Door { get; set; }
         public string? PostalCode { get; set; }
         public string? TownName { get; set; }
-
         public FloorType FloorType { private get; set; } = FloorType.None;
-
-        public override string ToString()
-        {
-            var floorPart = Floor.HasValue ? $"{Floor}." : ""; // e.g. "3."
-            var doorPart = !string.IsNullOrEmpty(Door) ? $" {Door}" : ""; // e.g. " th"
-
-            return $"{Street} {Number}, {floorPart}{doorPart}\n{PostalCode} {TownName}";
-        }
-
-        //private Doortype DoorType { get; } = Doortype.None;
 
         public void ValidateStreet()
         {
@@ -155,14 +138,6 @@ namespace api.Models
             );
         }
 
-        public void Validate()
-        {
-            ValidateStreet();
-            ValidateNumber();
-            ValidateFloor();
-            ValidateDoor();
-        }
-
         #region Function - return a fake address
         private static int GenerateRandomNumber(int x, int y)
         {
@@ -177,8 +152,6 @@ namespace api.Models
 
         public static Address GenerateFakeAddress()
         {
-            // var random = new Random();
-
             // Generate a random street name (5-12 characters, includes Danish letters)
             string street = GetRandomText(GenerateRandomNumber(5, 13), true);
 
@@ -192,8 +165,7 @@ namespace api.Models
             }
 
             // Generate a random floor (null or 1-10) with 70% chance of being null and if null return FloorType = "st"
-            int? floor =
-                GetRandomShared().NextDouble() < 0.7 ? GetRandomShared().Next(1, 11) : null;
+            int? floor = GetRandomShared().NextDouble() < 0.3 ? GetRandomShared().Next(1, 11) : null;
 
             // Generate a random door (valid formats)
             string[] doorOptions = ["th", "mf", "tv"];

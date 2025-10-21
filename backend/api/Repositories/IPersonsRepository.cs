@@ -4,5 +4,5 @@ namespace api.Repositories;
 
 public interface IPersonsRepository
 {
-    Postal GetPostal();
+    Task<Postal> GetPostal();
 }
