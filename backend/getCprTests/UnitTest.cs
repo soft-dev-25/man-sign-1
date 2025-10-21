@@ -9,6 +9,7 @@ using NSubstitute.ExceptionExtensions;
 
 namespace getCprTests;
 
+[Trait("TestCategory", "UnitTest")]
 public class UnitTest
 {
     // TODO: Nedenstående test skal flyttes til en Person.cs.test klasse

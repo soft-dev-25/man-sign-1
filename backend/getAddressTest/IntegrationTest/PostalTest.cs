@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 namespace getAddressTest.IntegrationTest
 {
     [TestFixture]
-    [Category("IntegrationDbTest")]
+    [Category("IntegrationTest")]
     public class PostalTest
     {
         private DataContext _context;
@@ -37,15 +37,6 @@ namespace getAddressTest.IntegrationTest
             _context.Database.EnsureDeleted();
             // Apply migrations to the database
             _context.Database.Migrate();
-
-            /*
-             * // Seed data for testing
-            _context.Postals.AddRange(
-                new api.Models.Postal { PostalCode = "1000", TownName = "Copenhagen" },
-                new api.Models.Postal { PostalCode = "2000", TownName = "Frederiksberg" }
-            );
-            _context.SaveChanges();
-            */
 
             //Initialize the repository with the test context
             _personsRepository = new PersonsRepository(_context);

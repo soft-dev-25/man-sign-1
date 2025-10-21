@@ -4,6 +4,7 @@ using FluentAssertions;
 
 namespace getPhoneTests;
 
+[Trait("TestCategory", "UnitTest")]
 public class UnitTests
 {
     [Fact]
