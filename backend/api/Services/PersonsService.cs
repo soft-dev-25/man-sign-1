@@ -93,17 +93,17 @@ public class PersonsService : IPersonsService
     {
         var postal = await _personsRepository.GetPostal();
         var address = Address.GenerateFakeAddress();
-        
+
         var dto = new AddressDTO
         {
             Door = address.Door,
             Number = address.Number,
             Street = address.Street,
             TownName = postal.TownName,
-            PostalCode = postal.PostalCode
+            PostalCode = postal.PostalCode,
         };
         dto.SetFloor(address.Floor);
-        
+
         return dto;
     }
 

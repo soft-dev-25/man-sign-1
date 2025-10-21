@@ -13,7 +13,7 @@ public class PersonsRepository(DataContext context) : IPersonsRepository
         var postal = await context.Postals.ToListAsync();
 
         var randomPostal = postal[_random.Next(postal.Count)];
-        
+
         return randomPostal;
     }
 }

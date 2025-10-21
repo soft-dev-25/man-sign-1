@@ -165,7 +165,8 @@ namespace api.Models
             }
 
             // Generate a random floor (null or 1-10) with 70% chance of being null and if null return FloorType = "st"
-            int? floor = GetRandomShared().NextDouble() < 0.3 ? GetRandomShared().Next(1, 11) : null;
+            int? floor =
+                GetRandomShared().NextDouble() < 0.3 ? GetRandomShared().Next(1, 11) : null;
 
             // Generate a random door (valid formats)
             string[] doorOptions = ["th", "mf", "tv"];

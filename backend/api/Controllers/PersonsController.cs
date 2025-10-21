@@ -57,7 +57,7 @@ public class PersonsController : ControllerBase, IPersonsController
     public async Task<IActionResult> GetAddress()
     {
         var addressDto = await _personsService.GetAddress();
-            
+
         return Ok(addressDto);
     }
 
