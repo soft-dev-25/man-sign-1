@@ -1,8 +1,20 @@
 # man-sign-1
 
-This is the repository for the mandatory assignment #1 in the Test Class.
+## How to Start the Project
 
-Make sure to run `npm install` after cloning this repository to use Husky's pre-commit hook.
+Make sure to setup the `.env` in the root of the project.
+
+Run `docker compose up -d`
+
+## How to test
+
+### Unit tests
+
+Run `npm run unit-test`
+
+### Integration tests
+
+Run `npm run integration-test`
 
 ## Endpoints
 
@@ -98,6 +110,28 @@ Make sure to run `npm install` after cloning this repository to use Husky's pre-
 }
 ```
 
+<tr>
+<td><code>/address</code></td>
+<td>Receive a random address</td>
+<td>
+
+```json
+{
+  "street": "gIKoXUåJeVT",
+  "number": "249",
+  "floorDisplay": "4",
+  "door": "mf",
+  "postalCode": "9400",
+  "townName": "Nørresundby"
+}
+```
+
+</td>
+</tr>
+
+</td>
+</tr>
 </td>
 </tr>
 </table>
+
