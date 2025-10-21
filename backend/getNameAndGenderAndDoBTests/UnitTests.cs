@@ -7,6 +7,7 @@ using NSubstitute;
 
 namespace getNameAndGenderAndDoBTests;
 
+[Trait("TestCategory", "UnitTest")]
 public class UnitTests
 {
     [Fact]

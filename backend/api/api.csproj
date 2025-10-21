@@ -22,4 +22,9 @@
       <Link>.dockerignore</Link>
     </Content>
   </ItemGroup>
+  <ItemGroup>
+    <None Update="Sql\seed.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 </Project>
