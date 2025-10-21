@@ -9,7 +9,7 @@ public interface IPersonsService
     Task<PersonDTO> GetNameAndGenderAndDoB();
     Task<PersonDTO> GetCprAndNameAndGender();
     Task<PersonDTO> GetCprAndNameAndGenderAndDoB();
-    Task<PersonDTO> GetAddress();
+    Task<AddressDTO> GetAddress();
     Task<PersonDTO> GetPhone();
     Task<List<PersonDTO>> GetPersons(int? count);
 }
