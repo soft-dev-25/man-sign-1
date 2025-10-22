@@ -81,23 +81,23 @@ To ensure that Class `Address.cs` is been tested thoroughly, I used the followin
 ### Black-box design techniques (manual analysis)
 Since the phone number generation is randomized, black-box testing focuses on validating the **invariant properties** and **business rules** rather than specific input/output pairs.
 
-| Partition Type           | Partition                    | Expected Behavior                                                |
-|--------------------------|------------------------------|------------------------------------------------------------------|
-| Equivalence Partitioning | Valid Phone Number           | Always 8 digits, starts with allowed prefix, contains only digits |
-| Equivalence Partitioning | Invalid Phone Number         | Any deviation from the above rules                               |
-| Boundary Value Analysis  | Length Lower Bound           | Must be exactly 8 characters (no less)                          |
-| Boundary Value Analysis  | Length Upper Bound           | Must be exactly 8 characters (no more)                          |
-| Boundary Value Analysis  | Prefix Validation            | Must start with one of the allowed prefixes                     |
+| Partition Type           | Partition            | Expected Behavior                                                 |
+|--------------------------|----------------------|-------------------------------------------------------------------|
+| Equivalence Partitioning | Valid Phone Number   | Always 8 digits, starts with allowed prefix, contains only digits |
+| Equivalence Partitioning | Invalid Phone Number | Any deviation from the above rules                                |
+| Boundary Value Analysis  | Length Lower Bound   | Must be exactly 8 characters (no less)                            |
+| Boundary Value Analysis  | Length Upper Bound   | Must be exactly 8 characters (no more)                            |
+| Boundary Value Analysis  | Prefix Validation    | Must start with one of the allowed prefixes                       |
 
 ### Decision Table for Phone Number Validation
 
 | Length | Starts with Valid Prefix | Contains Only Digits | Expected Result |
-|--------|--------------------------|---------------------|-----------------|
-| 8      | Yes                      | Yes                 | Valid           |
-| 8      | Yes                      | No                  | Invalid         |
-| 8      | No                       | Yes                 | Invalid         |
-| 8      | No                       | No                  | Invalid         |
-| ≠8     | Yes                      | Yes                 | Invalid         |
-| ≠8     | Yes                      | No                  | Invalid         |
-| ≠8     | No                       | Yes                 | Invalid         |
-| ≠8     | No                       | No                  | Invalid         |
+|--------|--------------------------|----------------------|-----------------|
+| 8      | Yes                      | Yes                  | Valid           |
+| 8      | Yes                      | No                   | Invalid         |
+| 8      | No                       | Yes                  | Invalid         |
+| 8      | No                       | No                   | Invalid         |
+| ≠8     | Yes                      | Yes                  | Invalid         |
+| ≠8     | Yes                      | No                   | Invalid         |
+| ≠8     | No                       | Yes                  | Invalid         |
+| ≠8     | No                       | No                   | Invalid         |

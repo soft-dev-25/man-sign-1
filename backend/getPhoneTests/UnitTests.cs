@@ -47,7 +47,6 @@ public class UnitTests
         _phoneNumber.All(char.IsDigit).Should().BeTrue();
     }
 
-
     [Fact]
     public void PhoneNumber_Generation_Should_ConsistentlyProduceValidNumbers()
     {
@@ -66,8 +65,7 @@ public class UnitTests
             phoneNumber.Should().NotBeNullOrEmpty();
             phoneNumber.Length.Should().Be(8);
             phoneNumber.All(char.IsDigit).Should().BeTrue();
-            allowedPrefixes.Any(prefix => phoneNumber.StartsWith(prefix))
-                .Should().BeTrue();
+            allowedPrefixes.Any(prefix => phoneNumber.StartsWith(prefix)).Should().BeTrue();
         }
     }
 }
