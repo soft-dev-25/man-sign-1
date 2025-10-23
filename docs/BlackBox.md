@@ -1,6 +1,7 @@
 # Black-box and White-box Testing Documentation
 
-## Black-box design techniques (manual analysis)
+## Address
+### Black-box design techniques (manual analysis)
 
 - Based on requirements, we will test the following cases:
 
@@ -21,7 +22,7 @@
 | Boundary Value Analysis  | Door Lower Bound   | "1"                                                                         |
 |                          | Door Upper Bound   | "50"                                                                        |
 
-## Decision table for the Floor property validation based on your C# logic
+### Decision table for the Floor property validation based on your C# logic
 
 | FloorType | Floor (value) | Expected Result | Reason                                         |
 |-----------|---------------|-----------------|------------------------------------------------|
@@ -35,7 +36,7 @@
 | None      | 50            | Valid           | Typical valid value                            |
 | St        | 99            | Invalid         | FloorType 'st' cannot have a number            |
 
-## Decision table for the Door property validation based on your C# logic
+### Decision table for the Door property validation based on your C# logic
 
 | Door (value) | Expected Result | Reason               |
 |--------------|-----------------|----------------------|
@@ -49,7 +50,7 @@
 | A-1          | Valid           | Typical valid value  |
 | A-1234       | Invalid         | Above upper boundary |
 
-## List of test cases
+### List of test cases
 
 - **Street**
   - Valid: Vesterbrogade, Nørregade, Åboulevard
@@ -67,10 +68,36 @@
   - Valid: th, mf, tv, 1, 2, 49, 50, A-1, A-12, A-123, B1, B12, B123, æ-7
   - Invalid: 0, 51, door, null, " ", "", A--1, A-1234, , AB-12, A12B, A_12
 
-## White-box design techniques (automated analysis with tools)
+### White-box design techniques (automated analysis with tools)
 
 To ensure that Class `Address.cs` is been tested thoroughly, I used the following tools to analyze the code coverage and identify untested paths:
 
 - **Visual Studio Code Coverage**: This tool provides a detailed report of the lines of the code that were executing during the test.
 - **ReSharper**: This tool analyzes the code and identifies untested methods and branches. And this suggests additional test cases to cover the path of the test.
 - **Live Unit Testing in Visual Studio**: This feature runs tests automatically as code is being written and provides real-time feedback on code coverage.
+
+---
+## Phone number
+### Black-box design techniques (manual analysis)
+Since the phone number generation is randomized, black-box testing focuses on validating the **invariant properties** and **business rules** rather than specific input/output pairs.
+
+| Partition Type           | Partition            | Expected Behavior                                                 |
+|--------------------------|----------------------|-------------------------------------------------------------------|
+| Equivalence Partitioning | Valid Phone Number   | Always 8 digits, starts with allowed prefix, contains only digits |
+| Equivalence Partitioning | Invalid Phone Number | Any deviation from the above rules                                |
+| Boundary Value Analysis  | Length Lower Bound   | Must be exactly 8 characters (no less)                            |
+| Boundary Value Analysis  | Length Upper Bound   | Must be exactly 8 characters (no more)                            |
+| Boundary Value Analysis  | Prefix Validation    | Must start with one of the allowed prefixes                       |
+
+### Decision Table for Phone Number Validation
+
+| Length | Starts with Valid Prefix | Contains Only Digits | Expected Result |
+|--------|--------------------------|----------------------|-----------------|
+| 8      | Yes                      | Yes                  | Valid           |
+| 8      | Yes                      | No                   | Invalid         |
+| 8      | No                       | Yes                  | Invalid         |
+| 8      | No                       | No                   | Invalid         |
+| ≠8     | Yes                      | Yes                  | Invalid         |
+| ≠8     | Yes                      | No                   | Invalid         |
+| ≠8     | No                       | Yes                  | Invalid         |
+| ≠8     | No                       | No                   | Invalid         |
