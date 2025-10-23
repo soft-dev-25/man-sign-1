@@ -116,17 +116,56 @@ public class PersonsService : IPersonsService
 
     public async Task<PersonDTO> GetPerson()
     {
-        var personDto = await GetCprAndNameAndGender();
-        var phoneDto = await GetPhone();
-        // var addressDto = await GetAddress(); // will throw until implemented
+        var person = await _jsonService.GetRandomPersonFromJson();
+        var addressDto = await GetAddress();
+        person.CreatePhoneNumber();
+        person.CreateCpr();
 
-        // personDto.Address = addressDto.Address;
-        personDto.PhoneNumber = phoneDto.PhoneNumber;
-
+        var personDto = _personToDTO(person);
+        personDto.Address = addressDto;
+        
         return personDto;
     }
+
     public Task<List<PersonDTO>> GetPersons(int? count = 1)
     {
         throw new NotImplementedException();
+    }
+
+    private PersonDTO _personToDTO(Person person)
+    {
+        var dto = new PersonDTO();
+
+        if (!string.IsNullOrEmpty(person.Cpr))
+            dto.Cpr = person.Cpr;
+
+        if (!string.IsNullOrEmpty(person.FirstName))
+            dto.FirstName = person.FirstName;
+
+        if (!string.IsNullOrEmpty(person.LastName))
+            dto.LastName = person.LastName;
+
+        if (!string.IsNullOrEmpty(person.Gender))
+            dto.Gender = person.Gender;
+
+        if (person.BirthDate != null)
+            dto.SetBirthDate(person.BirthDate);
+
+        if (person.Address != null)
+        {
+            dto.Address = new AddressDTO
+            {
+                Door = person.Address.Door,
+                Number = person.Address.Number,
+                Street = person.Address.Street,
+                TownName = person.Address.TownName,
+                PostalCode = person.Address.PostalCode,
+            };
+        }
+
+        if (!string.IsNullOrEmpty(person.PhoneNumber))
+            dto.PhoneNumber = person.PhoneNumber;
+
+        return dto;
     }
 }
