@@ -85,3 +85,7 @@ jobs:
           HOST: "http://${{ vars.VM_IP_ADDRESS }}:3000"
         run: |
           postman collection run "48703513-b9040924-18c2-450d-b42c-ebcd117e744d" --env-var "HOST=$HOST"
+
+  e2e-playwright-tests:
+    name: Run End-To-End Tests
+    uses: ./.github/workflows/e2e_test.yml
