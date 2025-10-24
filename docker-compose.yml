@@ -6,11 +6,12 @@ services:
     container_name: frontend-container
     build: ./frontend
     restart: always
+    environment:
+      - API_URL=${API_URL}
     ports:
       - "8080:80"
     volumes:
       - ./frontend:/usr/share/nginx/html
-
 
   # Backend Service
   backend:
@@ -19,6 +20,7 @@ services:
     restart: always
     environment:
       - ConnectionString=server=database-container;port=5432;database=post_db;userid=${POSTGRES_USER};password=${POSTGRES_PW}
+      - BASEURL=${BASEURL}
     ports:
       - "3000:8080"
     depends_on:
@@ -37,7 +39,11 @@ services:
     ports:
       - "5432:5432"
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres} -d post_db -h localhost"]
+      test:
+        [
+          "CMD-SHELL",
+          "pg_isready -U ${POSTGRES_USER:-postgres} -d post_db -h localhost",
+        ]
       interval: 10s
       timeout: 5s
       retries: 5
