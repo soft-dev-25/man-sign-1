@@ -17,5 +17,11 @@ jobs:
         with:
           dotnet-version: "9.0.x"
 
-      - name: Run e2e tests
+      - name: Build & Install
+        run: dotnet Build
+
+      - name: Install Playwright Browsers
+        run: pwsh bin/Debug/net9.0/playwright.ps1 install
+
+      - name: Run Playwright Tests
         run: dotnet test e2e_playwrighttests/playwright.sln --filter TestCategory=E2ETest
