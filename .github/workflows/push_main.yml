@@ -88,4 +88,5 @@ jobs:
 
   e2e-playwright-tests:
     name: Run End-To-End Tests
+    needs: deploy-containers
     uses: ./.github/workflows/e2e_test.yml
