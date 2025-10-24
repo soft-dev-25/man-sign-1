@@ -7,7 +7,7 @@ WORKDIR /app
 COPY . .
 
 # Install dependencies and build the project
-RUN npm install && npm run build
+RUN npm install --ignore-scripts && npm run build
 
 # Use nginx to serve static files
 FROM nginx:alpine
