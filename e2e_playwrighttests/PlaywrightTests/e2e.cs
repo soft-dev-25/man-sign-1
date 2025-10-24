@@ -169,7 +169,7 @@ public class E2eTest : PageTest
                 Width = 1280,
                 Height = 720
             },
-            BaseURL = "http://localhost:8080"
+            BaseURL = Environment.GetEnvironmentVariable("BASEURL") ?? "http://localhost:8080/"
         };
     }
 }
