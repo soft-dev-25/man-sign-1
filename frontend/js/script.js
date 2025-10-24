@@ -98,5 +98,4 @@ const handleError = () => {
         output.innerHTML = '';
         output.classList.remove('error');
     }, 2000);
-
 };
