@@ -18,7 +18,6 @@ document.querySelector('#frmGenerate').addEventListener('submit', (e) => {
     // API call
     fetch(baseUrl + endpoint)
     .then(response => {
-        console.log(response)
         if (!response.ok) {
             handleError();
         } else {
@@ -99,4 +98,5 @@ const handleError = () => {
         output.innerHTML = '';
         output.classList.remove('error');
     }, 2000);
+
 };
