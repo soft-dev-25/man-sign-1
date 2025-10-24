@@ -1,6 +1,7 @@
 # Black-box and White-box Testing Documentation
 
 ## Address
+
 ### Black-box design techniques (manual analysis)
 
 - Based on requirements, we will test the following cases:
@@ -10,7 +11,7 @@
 | Equivalence Partitioning | Valid Street       | "Vesterbrogade", "Nørregade", "Åboulevard"                                  |
 |                          | Invalid Street     | Null, "", " " "123Main", "Main St."                                         |
 | Equivalence Partitioning | Valid Number       | "2","500", "998", "500B", "998A"                                            |
-|                          | Invalid Number     | "0", "1000", "01", "A12", " ", ""  ,Null                                    |
+|                          | Invalid Number     | "0", "1000", "01", "A12", " ", "" ,Null                                     |
 | Equivalence Partitioning | Valid Floor        | 2, 50, 98, "st"                                                             |
 |                          | Invalid Floor      | 0, 100, -1, null (when FloorType != St)                                     |
 | Equivalence Partitioning | Valid Door         | "th", "mf", "tv", "2", "49", "A-1", "A-12", A-123, "B1" ,"B12", "B123,"æ-7" |
@@ -53,14 +54,17 @@
 ### List of test cases
 
 - **Street**
+
   - Valid: Vesterbrogade, Nørregade, Åboulevard
   - Invalid: null, "", " ", 123Main, Main St.
 
 - **Number**
+
   - Valid: 1, 2, 500, 998, 1A, 500B, 998A, 999, 999A
   - Invalid: null, " ", "", 0, 1000, 01, A12
 
 - **Floor**
+
   - Valid: 1, 2, 50, 98, 99, st
   - Invalid: 0, 100, -1, null, (when FloorType != St)
 
@@ -76,9 +80,10 @@ To ensure that Class `Address.cs` is been tested thoroughly, I used the followin
 - **ReSharper**: This tool analyzes the code and identifies untested methods and branches. And this suggests additional test cases to cover the path of the test.
 - **Live Unit Testing in Visual Studio**: This feature runs tests automatically as code is being written and provides real-time feedback on code coverage.
 
----
 ## Phone number
+
 ### Black-box design techniques (manual analysis)
+
 Since the phone number generation is randomized, black-box testing focuses on validating the **invariant properties** and **business rules** rather than specific input/output pairs.
 
 | Partition Type           | Partition            | Expected Behavior                                                 |
@@ -101,3 +106,18 @@ Since the phone number generation is randomized, black-box testing focuses on va
 | ≠8     | Yes                      | No                   | Invalid         |
 | ≠8     | No                       | Yes                  | Invalid         |
 | ≠8     | No                       | No                   | Invalid         |
+
+## Gender
+
+In the Danish CPR system there exists only two genders, Male and Female, which determines whether the last digit in your CPR is an even (female) or uneven (male) number. This calculation cannot be determined if given a gender outside the binary gender system. An exception (Bad Request 400) is thrown.
+
+### Decision Table for Gender Validation
+
+| Gender         | Outcome | Expected Result                    |
+|----------------|---------|------------------------------------|
+| "Male"         | Valid   | Uneven last digit in CPR generated |
+| "Female"       | Valid   | Even last digit in CPR generated   |
+| "Other"        | Invalid | Exception                          |
+| "Non-Binary"   | Invalid | Exception                          |
+| "Gender-Fluid" | Invalid | Exception                          |
+| ""             | Invalid | Exception                          |
