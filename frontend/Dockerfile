@@ -4,7 +4,11 @@ FROM node:18-alpine AS build
 WORKDIR /app
 
 # Copy project files
-COPY . .
+COPY package*.json ./
+COPY index.html ./
+COPY vite.config.js ./
+COPY package*.json ./
+COPY src ./src
 
 # Install dependencies and build the project
 RUN npm install --ignore-scripts && npm run build
