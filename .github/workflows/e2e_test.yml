@@ -1,0 +1,19 @@
+name: End-to-End Tests
+
+on:
+  workflow_call:
+
+jobs:
+  unit-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: "9.0.x"
+
+      - name: Run e2e tests
+        run: dotnet test e2e_playwrighttests/playwright.sln --filter TestCategory=E2ETest
