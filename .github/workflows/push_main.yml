@@ -62,8 +62,8 @@ jobs:
 
             echo "Insert variables for building containers"
             echo "POSTGRES_USER=$POSTGRES_USER" > .env
-            echo "POSTGRES_PW=$POSTGRES_PW" > .env
-            echo "API_URL=$API_URL" > .env
+            echo "POSTGRES_PW=$POSTGRES_PW" >> .env
+            echo "API_URL=$API_URL" >> .env
             echo "BASEURL=$BASEURL" >> .env
 
             echo "Build containers"

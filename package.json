@@ -7,7 +7,7 @@
     "doc": "docs"
   },
   "scripts": {
-    "unit-test": "dotnet test backend/backend.sln --filter 'TestCategory=UnitTest'",
+    "unit-test": "dotnet test backend/backend.sln --filter TestCategory=UnitTest",
     "integration-test": "bash ./scripts/integration/integrationTest.sh",
     "e2e-test": "dotnet test e2e_playwrighttests/playwright.sln --filter TestCategory=E2ETest",
     "format": "dotnet format backend/backend.sln",
