@@ -1,3 +1,4 @@
+using api.Models;
 using api.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -57,8 +58,9 @@ public class PersonsController : ControllerBase, IPersonsController
     public async Task<IActionResult> GetAddress()
     {
         var addressDto = await _personsService.GetAddress();
+        var addressWrapper = new { Address = addressDto };
 
-        return Ok(addressDto);
+        return Ok(addressWrapper);
     }
 
     [HttpGet("phone")]
