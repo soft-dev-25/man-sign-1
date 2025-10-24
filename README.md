@@ -119,10 +119,10 @@ Run `npm run integration-test`
 {
   "street": "gIKoXUåJeVT",
   "number": "249",
-  "floorDisplay": "4",
+  "floor": "4",
   "door": "mf",
-  "postalCode": "9400",
-  "townName": "Nørresundby"
+  "postal_code": "9400",
+  "town_name": "Nørresundby"
 }
 ```
 

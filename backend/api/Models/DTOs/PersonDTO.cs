@@ -21,12 +21,12 @@ public class PersonDTO
     public string? BirthDate { get; set; }
 
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-    public Address? Address { get; set; }
+    public AddressDTO? Address { get; set; }
 
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public string? PhoneNumber { get; set; }
 
-    public void setBirthDate(DateOnly? birthdate)
+    public void SetBirthDate(DateOnly? birthdate)
     {
         BirthDate = birthdate?.ToString("yyyy-MM-dd");
     }

@@ -43,9 +43,9 @@ namespace getAddressTest.IntegrationTest
         }
 
         [Test]
-        public void GetPostal_ReturnsSeededPostal()
+        public async Task GetPostal_ReturnsSeededPostal()
         {
-            var result = _personsRepository.GetPostal();
+            var result = await _personsRepository.GetPostal();
             Assert.That(result.PostalCode, Does.Match(@"^\d{4}$")); // Postal code should be 4 digits
         }
 
