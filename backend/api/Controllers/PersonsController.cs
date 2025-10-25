@@ -94,13 +94,11 @@ public class PersonsController : ControllerBase, IPersonsController
         {
             return BadRequest("Provide a positive count");
         }
-        
-        var persons = new List<PersonDTO>();
 
-        for (int i = 0; i < count; i++)
-        {
-            persons.Add(await _personsService.GetPerson());
-        }
+        var persons = new List<PersonDTO>();
+        // For parallel creation all promises are added upfront and then awaited
+        var tasks = Enumerable.Range(0, count.Value).Select(_ => _personsService.GetPerson());
+        persons.AddRange(await Task.WhenAll(tasks));
 
         return Ok(persons);
     }
