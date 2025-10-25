@@ -1,6 +1,7 @@
 using System.Drawing;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using DotNetEnv;
 using Microsoft.Playwright;
 using Microsoft.Playwright.NUnit;
 using NUnit.Framework;
@@ -19,7 +20,7 @@ public class E2eTest : PageTest
 
     /*For easy tests writing run:
 
-        powershell bin/Debug/net9.0/playwright.ps1 codegen 
+        powershell bin/Debug/net9.0/playwright.ps1 codegen
         or
         pwsh bin/Debug/net9.0/playwright.ps1 codegen
     */
@@ -28,7 +29,7 @@ public class E2eTest : PageTest
     
         [Test]
         public async Task TestTemplate()
-        {   
+        {
             await Page.GotoAsync("/");
             
         }
@@ -141,15 +142,15 @@ public class E2eTest : PageTest
 
         await Expect(Page.GetByRole(AriaRole.Article)).ToContainTextAsync("Address:");
     }
-    
+
     [Test]
     public async Task PratialPhoneNumber()
     {
         await Page.GotoAsync("/");
-        
+
         await Page.GetByRole(AriaRole.Radio, new() { Name = "Partial generation:" }).CheckAsync();
         await Page.Locator("#cmbPartialOptions").SelectOptionAsync(new[] { "phone" });
-        
+
         await Page.GetByRole(AriaRole.Button, new() { Name = "Generate" }).ClickAsync();
 
         await Expect(Page.GetByRole(AriaRole.Article)).ToContainTextAsync("Phone number:");
@@ -161,15 +162,13 @@ public class E2eTest : PageTest
 
     public override BrowserNewContextOptions ContextOptions()
     {
+        Env.TraversePath().Load();
+
         return new BrowserNewContextOptions
         {
             ColorScheme = ColorScheme.Light,
-            ViewportSize = new()
-            {
-                Width = 1280,
-                Height = 720
-            },
-            BaseURL = Environment.GetEnvironmentVariable("BASEURL") ?? "http://localhost:8080/"
+            ViewportSize = new() { Width = 1280, Height = 720 },
+            BaseURL = Environment.GetEnvironmentVariable("BASEURL") ?? "http://localhost:8080/",
         };
     }
 }
