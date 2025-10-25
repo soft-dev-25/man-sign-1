@@ -1,6 +1,6 @@
 import './style.css'
 
-const baseUrl = import.meta.env.API_URL || 'http://localhost:3000';
+const baseUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000';
 
 document.querySelector('#app').innerHTML = `
   <header>
