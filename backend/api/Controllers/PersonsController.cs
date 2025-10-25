@@ -80,8 +80,19 @@ public class PersonsController : ControllerBase, IPersonsController
     }
 
     [HttpGet("persons")]
-    public Task<IActionResult> GetPersons(int? count)
+    public async Task<IActionResult> GetPersons(int? count)
     {
-        throw new NotImplementedException();
+        if (count > 1000)
+        {
+            return BadRequest("Too many persons requested");
+        }
+        var persons = new List<PersonDTO>();
+
+        for (int i = 0; i < count; i++)
+        {
+            persons.Add(await _personsService.GetPerson());
+        }
+
+        return Ok(persons);
     }
 }
