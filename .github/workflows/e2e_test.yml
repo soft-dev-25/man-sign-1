@@ -5,9 +5,11 @@ on:
   pull_request:
 
 jobs:
+
   playwright:
     name: "Playwright E2E Tests"
     runs-on: ubuntu-latest
+    environment: secrets
     env:
       BASEURL: ${{ secrets.BASEURL }}
     steps:
