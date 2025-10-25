@@ -10,6 +10,8 @@ jobs:
     container:
       image: mcr.microsoft.com/playwright/dotnet:v1.55.0-noble
       options: --user 1001
+    env:
+      BASEURL: ${{ secrets.BASEURL }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v5
