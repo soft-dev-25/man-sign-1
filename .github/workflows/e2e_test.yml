@@ -2,7 +2,9 @@ name: End-to-End Tests
 
 on:
   workflow_call:
-  pull_request:
+    secrets:
+      BASEURL:
+        required: true
 
 jobs:
   playwright:

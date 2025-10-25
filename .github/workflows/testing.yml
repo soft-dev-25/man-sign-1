@@ -1,0 +1,11 @@
+name: testing
+
+on:
+  pull_request
+
+jobs:
+  e2e-playwright-tests:
+    name: Run End-To-End Tests
+    uses: ./.github/workflows/e2e_test.yml
+    secrets:
+      BASEURL: ${{ secrets.BASEURL }}
