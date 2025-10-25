@@ -4,7 +4,6 @@ on:
   workflow_call:
 
 jobs:
-
   playwright:
     name: "Playwright E2E Tests"
     runs-on: ubuntu-latest
@@ -23,7 +22,7 @@ jobs:
       - name: Build
         working-directory: e2e_playwrighttests
         run: dotnet build 
-      
+
       - name: Ensure browsers are installed
         working-directory: e2e_playwrighttests/PlaywrightTests
         run: pwsh bin/Debug/net9.0/playwright.ps1 install --with-deps
