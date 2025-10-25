@@ -2,7 +2,10 @@ using api.DBContext;
 using api.ExceptionHandlers;
 using api.Repositories;
 using api.Services;
+using DotNetEnv;
 using Microsoft.EntityFrameworkCore;
+
+Env.TraversePath().Load();
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,7 +17,10 @@ builder.Services.AddCors(options =>
         myCorsRule,
         policy =>
         {
-            policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+            policy
+            .WithOrigins(Environment.GetEnvironmentVariable("BASEURL") ?? "*")
+            .AllowAnyHeader()
+            .AllowAnyMethod();
         }
     );
 });
@@ -44,14 +50,14 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
 }
 
+// Apply CORS settings
+app.UseCors(myCorsRule);
+
 var httpsPort = app.Configuration["ASPNETCORE_HTTPS_PORT"];
 if (!string.IsNullOrEmpty(httpsPort))
 {
     app.UseHttpsRedirection();
 }
-
-// Apply CORS settings
-app.UseCors(myCorsRule);
 
 app.UseAuthorization();
 
