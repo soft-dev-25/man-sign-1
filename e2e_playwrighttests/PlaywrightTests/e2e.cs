@@ -38,7 +38,7 @@ public class E2eTest : PageTest
     [Test]
     public async Task HasTitle()
     {
-        await Page.GotoAsync("/");
+        await Page.GotoAsync(Environment.GetEnvironmentVariable("BASEURL"));
 
         //await Page.GotoAsync("http://localhost:8080");
 
@@ -49,7 +49,7 @@ public class E2eTest : PageTest
     [Test]
     public async Task PartialCPR()
     {
-        await Page.GotoAsync("/");
+        await Page.GotoAsync(Environment.GetEnvironmentVariable("BASEURL"));
         //await Page.GotoAsync("http://localhost:8080");
 
         //Finds Radio and presses it
@@ -74,7 +74,7 @@ public class E2eTest : PageTest
     [Test]
     public async Task PartialNameGender()
     {
-        await Page.GotoAsync("/");
+        await Page.GotoAsync(Environment.GetEnvironmentVariable("BASEURL"));
         await Page.GetByRole(AriaRole.Radio, new() { Name = "Partial generation:" }).CheckAsync();
         await Page.Locator("#cmbPartialOptions").SelectOptionAsync(new[] { "name-gender" });
         await Page.GetByRole(AriaRole.Button, new() { Name = "Generate" }).ClickAsync();
@@ -86,7 +86,7 @@ public class E2eTest : PageTest
     [Test]
     public async Task PartialNameGenderBirthdate()
     {
-        await Page.GotoAsync("/");
+        await Page.GotoAsync(Environment.GetEnvironmentVariable("BASEURL"));
         await Page.GetByRole(AriaRole.Radio, new() { Name = "Partial generation:" }).CheckAsync();
         await Page.Locator("#cmbPartialOptions").SelectOptionAsync(new[] { "name-gender-dob" });
         await Page.GetByRole(AriaRole.Button, new() { Name = "Generate" }).ClickAsync();
@@ -100,7 +100,7 @@ public class E2eTest : PageTest
     [Test]
     public async Task PratialCPRNameGender()
     {
-        await Page.GotoAsync("/");
+        await Page.GotoAsync(Environment.GetEnvironmentVariable("BASEURL"));
 
         await Page.GetByRole(AriaRole.Radio, new() { Name = "Partial generation:" }).CheckAsync();
         await Page.Locator("#cmbPartialOptions").SelectOptionAsync(new[] { "cpr-name-gender" });
@@ -116,7 +116,7 @@ public class E2eTest : PageTest
     [Test]
     public async Task PratialCPRNameGenderBirthDate()
     {
-        await Page.GotoAsync("/");
+        await Page.GotoAsync(Environment.GetEnvironmentVariable("BASEURL"));
 
         await Page.GetByRole(AriaRole.Radio, new() { Name = "Partial generation:" }).CheckAsync();
         await Page.Locator("#cmbPartialOptions").SelectOptionAsync(new[] { "cpr-name-gender-dob" });
@@ -133,7 +133,7 @@ public class E2eTest : PageTest
     [Test]
     public async Task PratialAddress()
     {
-        await Page.GotoAsync("/");
+        await Page.GotoAsync(Environment.GetEnvironmentVariable("BASEURL"));
 
         await Page.GetByRole(AriaRole.Radio, new() { Name = "Partial generation:" }).CheckAsync();
         await Page.Locator("#cmbPartialOptions").SelectOptionAsync(new[] { "address" });
@@ -146,7 +146,7 @@ public class E2eTest : PageTest
     [Test]
     public async Task PratialPhoneNumber()
     {
-        await Page.GotoAsync("/");
+        await Page.GotoAsync(Environment.GetEnvironmentVariable("BASEURL"));
 
         await Page.GetByRole(AriaRole.Radio, new() { Name = "Partial generation:" }).CheckAsync();
         await Page.Locator("#cmbPartialOptions").SelectOptionAsync(new[] { "phone" });
