@@ -82,10 +82,19 @@ public class PersonsController : ControllerBase, IPersonsController
     [HttpGet("persons")]
     public async Task<IActionResult> GetPersons(int? count)
     {
-        if (count > 1000)
+        if (!count.HasValue)
+        {
+            return BadRequest("Count cannot be null");
+        }
+        else if (count > 1000)
         {
             return BadRequest("Too many persons requested");
         }
+        else if (count < 1)
+        {
+            return BadRequest("Provide a positive count");
+        }
+        
         var persons = new List<PersonDTO>();
 
         for (int i = 0; i < count; i++)

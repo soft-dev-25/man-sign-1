@@ -17,7 +17,7 @@ namespace getPersonTests;
 public class UnitTest
 {
     [Fact]
-    public async Task Person_Fields_Should_Not_Be()
+    public async Task GetPerson_NoFieldsShouldNotBeNull()
     {
         var fname = "Nanu";
         var lname = "Larsen";
@@ -66,13 +66,18 @@ public class UnitTest
 }
 
 
-
+[Trait("TestCategory", "UnitTest")]
 public class PersonsControllerTests
 {
-    [Fact]
-    public async Task GetPersons_ReturnsCorrectNumberOfPersons()
+    [Theory]
+    [InlineData(1)]
+    [InlineData(2)]
+    [InlineData(500)]
+    [InlineData(999)]
+    [InlineData(1000)]
+    public async Task GetPersons_ReturnsCorrectNumberOfPersons(int count)
     {
-        
+
         // Arrange
         var mockPersonsService = Substitute.For<IPersonsService>();
         var fakePerson = new PersonDTO
@@ -90,8 +95,6 @@ public class PersonsControllerTests
 
         var controller = new PersonsController(mockPersonsService);
 
-        int count = 3;
-
         // Act
         var result = await controller.GetPersons(count);
 
@@ -104,5 +107,24 @@ public class PersonsControllerTests
         {
             Assert.Equal(fakePerson, person); // Ensure each person matches the mocked data
         }
+    }
+
+    [Theory]
+    [InlineData(null)] 
+    [InlineData(-1)] 
+    [InlineData(0)] 
+    [InlineData(1001)]
+    [InlineData(1002)]
+    public async Task GetPersons_HandlesBadAmountsCorrectly(int? count)
+    {
+        // Arrange
+        var mockPersonsService = Substitute.For<IPersonsService>();
+        var controller = new PersonsController(mockPersonsService);
+
+        // Act
+        var result = await controller.GetPersons(count);
+
+        // Assert
+        Assert.IsType<BadRequestObjectResult>(result);
     }
 }
