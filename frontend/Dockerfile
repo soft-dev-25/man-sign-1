@@ -3,6 +3,10 @@ FROM node:22-alpine AS build
 # Set working directory
 WORKDIR /app
 
+# Pass build args from GitHub Actions
+ARG VITE_API_URL
+ENV VITE_API_URL=$VITE_API_URL
+
 # Copy project files
 COPY package*.json ./
 COPY index.html ./
