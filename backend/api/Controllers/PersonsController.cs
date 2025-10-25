@@ -82,24 +82,19 @@ public class PersonsController : ControllerBase, IPersonsController
     [HttpGet("persons")]
     public async Task<IActionResult> GetPersons(int? count)
     {
-        if (!count.HasValue)
+        try
         {
-            return BadRequest("Count cannot be null");
+            var persons = await _personsService.GetPerson();
+            return Ok(persons);
         }
-        else if (count > 1000)
+        catch (ArgumentException e)
         {
-            return BadRequest("Too many persons requested");
+            return BadRequest(e.Message);
         }
-        else if (count < 1)
+        catch (Exception e)
         {
-            return BadRequest("Provide a positive count");
+            Console.WriteLine(e);
+            return StatusCode(500, "An unexpected error occurred");
         }
-
-        var persons = new List<PersonDTO>();
-        // For parallel creation all promises are added upfront and then awaited
-        var tasks = Enumerable.Range(0, count.Value).Select(_ => _personsService.GetPerson());
-        persons.AddRange(await Task.WhenAll(tasks));
-
-        return Ok(persons);
     }
 }

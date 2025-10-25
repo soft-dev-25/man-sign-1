@@ -123,13 +123,31 @@ public class PersonsService : IPersonsService
 
         var personDto = _personToDTO(person);
         personDto.Address = addressDto;
-        
+
         return personDto;
     }
 
-    public Task<List<PersonDTO>> GetPersons(int? count = 1)
+    public async Task<List<PersonDTO>> GetPersons(int? count = 1)
     {
-        throw new NotImplementedException();
+        if (!count.HasValue)
+        {
+            throw new ArgumentException("Count cannot be null");
+        }
+        else if (count > 1000)
+        {
+            throw new ArgumentOutOfRangeException(nameof(count), "Too many persons requested");
+        }
+        else if (count < 1)
+        {
+            throw new ArgumentOutOfRangeException(nameof(count), "Provide a positive count");
+        }
+
+        var persons = new List<PersonDTO>();
+        // For parallel creation, all promises are added upfront and then awaited
+        var tasks = Enumerable.Range(0, count.Value).Select(_ => GetPerson());
+        persons.AddRange(await Task.WhenAll(tasks));
+
+        return persons;
     }
 
     private PersonDTO _personToDTO(Person person)

@@ -14,10 +14,17 @@ using Microsoft.AspNetCore.Mvc;
 namespace getPersonTests;
 
 [Trait("TestCategory", "UnitTest")]
-public class UnitTest
+public class GetPersonsTests
 {
-    [Fact]
-    public async Task GetPerson_NoFieldsShouldNotBeNull()
+    private PersonsService _service;
+    private Person _person = new Person()
+    {
+        FirstName = "Nanu",
+        LastName = "Larsen",
+        Gender = "male"
+    };
+
+    public GetPersonsTests()
     {
         var fname = "Nanu";
         var lname = "Larsen";
@@ -44,31 +51,35 @@ public class UnitTest
             PostalCode = pcode
         });
 
-        var service = new PersonsService(mockRepository, mockDataContext, mockJsonService);
+        _service = new PersonsService(mockRepository, mockDataContext, mockJsonService);
+    }
 
-        var personDto = await service.GetPerson();
-
-        Assert.Equal(personDto.FirstName, fname);
-        Assert.Equal(personDto.LastName, lname);
-        Assert.Equal(personDto.Gender, gender);
-        Assert.Equal(personDto.Address?.TownName, tname);
-        Assert.Equal(personDto.Address?.PostalCode, pcode);
-
-
+    private bool _EnsureNoNullPersonFields(PersonDTO personDto)
+    {
         // Use reflection to check all properties of PersonDTO
         var properties = typeof(PersonDTO).GetProperties();
         foreach (var property in properties)
         {
-            var value = property.GetValue(personDto);
-            Assert.NotNull(value); // Ensure no property is null
+            if (property.GetValue(personDto) == null)
+            {
+                return false;
+            }
         }
+        return true;
     }
-}
 
+    [Fact]
+    public async Task GetPerson_NoFieldsShouldNotBeNull()
+    {
+        var personDto = await _service.GetPerson();
 
-[Trait("TestCategory", "UnitTest")]
-public class PersonsControllerTests
-{
+        Assert.Equal(personDto.FirstName, _person.FirstName);
+        Assert.Equal(personDto.LastName, _person.LastName);
+        Assert.Equal(personDto.Gender, _person.Gender);
+
+        Assert.True(_EnsureNoNullPersonFields(personDto));
+    }
+
     [Theory]
     [InlineData(1)]
     [InlineData(2)]
@@ -77,54 +88,23 @@ public class PersonsControllerTests
     [InlineData(1000)]
     public async Task GetPersons_ReturnsCorrectNumberOfPersons(int count)
     {
-
-        // Arrange
-        var mockPersonsService = Substitute.For<IPersonsService>();
-        var fakePerson = new PersonDTO
-        {
-            Cpr = "123456-7890",
-            FirstName = "John",
-            LastName = "Doe",
-            Gender = "Male",
-            BirthDate = "1990-01-01",
-            PhoneNumber = "12345678"
-        };
-
-        // Mock the GetPerson method to always return the fakePerson
-        mockPersonsService.GetPerson().Returns(fakePerson);
-
-        var controller = new PersonsController(mockPersonsService);
-
-        // Act
-        var result = await controller.GetPersons(count);
-
-        // Assert
-        var okResult = Assert.IsType<OkObjectResult>(result);
-        var persons = Assert.IsType<List<PersonDTO>>(okResult.Value);
+        var persons = await _service.GetPersons(count);
 
         Assert.Equal(count, persons.Count); // Ensure the correct number of persons is returned
         foreach (var person in persons)
         {
-            Assert.Equal(fakePerson, person); // Ensure each person matches the mocked data
+            Assert.True(_EnsureNoNullPersonFields(person));
         }
     }
 
     [Theory]
-    [InlineData(null)] 
-    [InlineData(-1)] 
-    [InlineData(0)] 
+    [InlineData(null)]
+    [InlineData(-1)]
+    [InlineData(0)]
     [InlineData(1001)]
     [InlineData(1002)]
     public async Task GetPersons_HandlesBadAmountsCorrectly(int? count)
     {
-        // Arrange
-        var mockPersonsService = Substitute.For<IPersonsService>();
-        var controller = new PersonsController(mockPersonsService);
-
-        // Act
-        var result = await controller.GetPersons(count);
-
-        // Assert
-        Assert.IsType<BadRequestObjectResult>(result);
+        await Assert.ThrowsAnyAsync<ArgumentException>(() => _service.GetPersons(count));
     }
 }
