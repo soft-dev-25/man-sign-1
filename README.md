@@ -16,6 +16,10 @@ Run `npm run unit-test`
 
 Run `npm run integration-test`
 
+### End-To-End tests
+
+Run `npm run e2e-test`
+
 ## Endpoints
 
 <table>
