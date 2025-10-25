@@ -1,15 +1,14 @@
-﻿using api.Models.DTOs;
-using api.Models;
-using api.Shared.Constants;
-using FluentAssertions;
+﻿using api.Controllers;
 using api.DBContext;
 using api.ExceptionHandlers;
+using api.Models;
+using api.Models.DTOs;
 using api.Repositories;
 using api.Services;
-using NSubstitute;
-using api.Controllers;
+using api.Shared.Constants;
+using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
-
+using NSubstitute;
 
 namespace getPersonTests;
 
@@ -21,7 +20,7 @@ public class GetPersonsTests
     {
         FirstName = "Nanu",
         LastName = "Larsen",
-        Gender = "male"
+        Gender = "male",
     };
 
     public GetPersonsTests()
@@ -45,11 +44,7 @@ public class GetPersonsTests
                     Gender = gender,
                 }
             );
-        mockRepository.GetPostal().Returns(new Postal
-        {
-            TownName = tname,
-            PostalCode = pcode
-        });
+        mockRepository.GetPostal().Returns(new Postal { TownName = tname, PostalCode = pcode });
 
         _service = new PersonsService(mockRepository, mockDataContext, mockJsonService);
     }
