@@ -94,3 +94,5 @@ jobs:
     name: Run End-To-End Tests
     needs: automated-api-tests
     uses: ./.github/workflows/e2e_test.yml
+    secrets:
+      BASEURL: ${{ secrets.BASEURL }}
