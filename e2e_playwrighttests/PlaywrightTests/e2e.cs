@@ -20,7 +20,7 @@ public class E2eTest : PageTest
 
     /*For easy tests writing run:
 
-        powershell bin/Debug/net9.0/playwright.ps1 codegen 
+        powershell bin/Debug/net9.0/playwright.ps1 codegen
         or
         pwsh bin/Debug/net9.0/playwright.ps1 codegen
     */
@@ -29,7 +29,7 @@ public class E2eTest : PageTest
     
         [Test]
         public async Task TestTemplate()
-        {   
+        {
             await Page.GotoAsync("/");
             
         }
@@ -167,12 +167,8 @@ public class E2eTest : PageTest
         return new BrowserNewContextOptions
         {
             ColorScheme = ColorScheme.Light,
-            ViewportSize = new()
-            {
-                Width = 1280,
-                Height = 720
-            },
-            BaseURL = Environment.GetEnvironmentVariable("BASEURL") ?? "http://localhost:8080/"
+            ViewportSize = new() { Width = 1280, Height = 720 },
+            BaseURL = Environment.GetEnvironmentVariable("BASEURL") ?? "http://localhost:8080/",
         };
     }
 }
