@@ -7,10 +7,11 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // CORS Settings
+var myCorsRule = "AllowAll";
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(
-        "AllowAll",
+        myCorsRule,
         policy =>
         {
             policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
@@ -30,21 +31,10 @@ builder.Services.AddProblemDetails();
 
 builder.Services.AddControllers();
 
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowFrontend", policy =>
-        policy.WithOrigins(Environment.GetEnvironmentVariable("BASEURL") ?? "http://localhost:8080/")
-              .AllowAnyHeader()
-              .AllowAnyMethod());
-});
-
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
 var app = builder.Build();
-
-app.UseCors("AllowFrontend");
-
 
 app.UseExceptionHandler();
 
@@ -59,6 +49,9 @@ if (!string.IsNullOrEmpty(httpsPort))
 {
     app.UseHttpsRedirection();
 }
+
+// Apply CORS settings
+app.UseCors(myCorsRule);
 
 app.UseAuthorization();
 
