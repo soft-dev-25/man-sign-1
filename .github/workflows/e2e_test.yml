@@ -4,10 +4,12 @@ on:
   workflow_call:
 
 jobs:
-  unit-tests:
+  playwright:
+    name: "Playwright E2E Tests"
     runs-on: ubuntu-latest
-    env:
-      BASEURL: ${{ secrets.BASEURL }}
+    container:
+      image: mcr.microsoft.com/playwright/dotnet:v1.55.0-noble
+      options: --user 1001
     steps:
       - name: Checkout code
         uses: actions/checkout@v5
@@ -17,14 +19,32 @@ jobs:
         with:
           dotnet-version: "9.0.x"
 
-      - name: Build & Install
-        working-directory: ./e2e_playwrighttests
-        run: dotnet Build
-
-      - name: Install Playwright Browsers
-        working-directory: ./e2e_playwrighttests/PlaywrightTests
-        run: pwsh bin/Debug/net9.0/playwright.ps1 install --with-deps
+      - name: Build
+        run: dotnet Build ./e2e_playwrighttests
 
       - name: Run Playwright Tests
-        working-directory: ./e2e_playwrighttests
-        run: dotnet test --filter TestCategory=E2ETest
+        run: dotnet test ./e2e_playwrighttests/playwright.sln --filter TestCategory=E2ETest
+
+    # runs-on: ubuntu-latest
+    # env:
+    #   BASEURL: ${{ secrets.BASEURL }}
+    # steps:
+    #   - name: Checkout code
+    #     uses: actions/checkout@v5
+
+    #   - name: Setup .NET
+    #     uses: actions/setup-dotnet@v5
+    #     with:
+    #       dotnet-version: "9.0.x"
+
+    #   - name: Build & Install
+    #     working-directory: ./e2e_playwrighttests
+    #     run: dotnet Build
+
+    #   - name: Install Playwright Browsers
+    #     working-directory: ./e2e_playwrighttests/PlaywrightTests
+    #     run: pwsh bin/Debug/net9.0/playwright.ps1 install --with-deps
+
+    #   - name: Run Playwright Tests
+    #     working-directory: ./e2e_playwrighttests
+    #     run: dotnet test --filter TestCategory=E2ETest

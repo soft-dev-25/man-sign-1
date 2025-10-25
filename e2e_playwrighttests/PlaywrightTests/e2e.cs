@@ -1,6 +1,7 @@
 using System.Drawing;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using DotNetEnv;
 using Microsoft.Playwright;
 using Microsoft.Playwright.NUnit;
 using NUnit.Framework;
@@ -141,15 +142,15 @@ public class E2eTest : PageTest
 
         await Expect(Page.GetByRole(AriaRole.Article)).ToContainTextAsync("Address:");
     }
-    
+
     [Test]
     public async Task PratialPhoneNumber()
     {
         await Page.GotoAsync("/");
-        
+
         await Page.GetByRole(AriaRole.Radio, new() { Name = "Partial generation:" }).CheckAsync();
         await Page.Locator("#cmbPartialOptions").SelectOptionAsync(new[] { "phone" });
-        
+
         await Page.GetByRole(AriaRole.Button, new() { Name = "Generate" }).ClickAsync();
 
         await Expect(Page.GetByRole(AriaRole.Article)).ToContainTextAsync("Phone number:");
@@ -161,6 +162,8 @@ public class E2eTest : PageTest
 
     public override BrowserNewContextOptions ContextOptions()
     {
+        Env.TraversePath().Load();
+
         return new BrowserNewContextOptions
         {
             ColorScheme = ColorScheme.Light,
