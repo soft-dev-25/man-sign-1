@@ -18,7 +18,7 @@ builder.Services.AddCors(options =>
         policy =>
         {
             policy
-            .WithOrigins(Environment.GetEnvironmentVariable("BASEURL") ?? "*")
+            .AllowAnyOrigin()
             .AllowAnyHeader()
             .AllowAnyMethod();
         }
