@@ -28,13 +28,13 @@ jobs:
         env:
           POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
           POSTGRES_PW: ${{ secrets.POSTGRES_PASSWORD }}
-          API_URL: ${{ secrets.API_URL }}
+          VITE_API_URL: ${{ secrets.VITE_API_URL }}
           BASEURL: ${{ secrets.BASEURL }}
         with:
           host: ${{ vars.VM_IP_ADDRESS }}
           username: ${{ vars.VM_USER }}
           key: ${{ secrets.VM_PRIVATE_KEY }}
-          envs: POSTGRES_USER,POSTGRES_PW,API_URL,BASEURL
+          envs: POSTGRES_USER,POSTGRES_PW,VITE_API_URL,BASEURL
           script: |
             echo "Extract repository name from context"
             REPO_NAME=$(basename "${{ github.repository }}")
@@ -63,7 +63,7 @@ jobs:
             echo "Insert variables for building containers"
             echo "POSTGRES_USER=$POSTGRES_USER" > .env
             echo "POSTGRES_PW=$POSTGRES_PW" >> .env
-            echo "API_URL=$API_URL" >> .env
+            echo "VITE_API_URL=$VITE_API_URL" >> .env
             echo "BASEURL=$BASEURL" >> .env
 
             echo "Build containers"
