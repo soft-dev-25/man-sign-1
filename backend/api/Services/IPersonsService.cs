@@ -11,5 +11,6 @@ public interface IPersonsService
     Task<PersonDTO> GetCprAndNameAndGenderAndDoB();
     Task<AddressDTO> GetAddress();
     Task<PersonDTO> GetPhone();
+    Task<PersonDTO> GetPerson();
     Task<List<PersonDTO>> GetPersons(int? count);
 }

@@ -114,8 +114,76 @@ public class PersonsService : IPersonsService
         return new PersonDTO { PhoneNumber = person.PhoneNumber };
     }
 
-    public Task<List<PersonDTO>> GetPersons(int? count = 1)
+    public async Task<PersonDTO> GetPerson()
     {
-        throw new NotImplementedException();
+        var person = await _jsonService.GetRandomPersonFromJson();
+        var addressDto = await GetAddress();
+        person.CreatePhoneNumber();
+        person.CreateCpr();
+
+        var personDto = _personToDTO(person);
+        personDto.Address = addressDto;
+
+        return personDto;
+    }
+
+    public async Task<List<PersonDTO>> GetPersons(int? count = 1)
+    {
+        if (!count.HasValue)
+        {
+            throw new ArgumentException("Count cannot be null");
+        }
+        else if (count > 1000)
+        {
+            throw new ArgumentOutOfRangeException(nameof(count), "Too many persons requested");
+        }
+        else if (count < 1)
+        {
+            throw new ArgumentOutOfRangeException(nameof(count), "Provide a positive count");
+        }
+
+        var persons = new List<PersonDTO>();
+        // For parallel creation, all promises are added upfront and then awaited
+        var tasks = Enumerable.Range(0, count.Value).Select(_ => GetPerson());
+        persons.AddRange(await Task.WhenAll(tasks));
+
+        return persons;
+    }
+
+    private PersonDTO _personToDTO(Person person)
+    {
+        var dto = new PersonDTO();
+
+        if (!string.IsNullOrEmpty(person.Cpr))
+            dto.Cpr = person.Cpr;
+
+        if (!string.IsNullOrEmpty(person.FirstName))
+            dto.FirstName = person.FirstName;
+
+        if (!string.IsNullOrEmpty(person.LastName))
+            dto.LastName = person.LastName;
+
+        if (!string.IsNullOrEmpty(person.Gender))
+            dto.Gender = person.Gender;
+
+        if (person.BirthDate != null)
+            dto.SetBirthDate(person.BirthDate);
+
+        if (person.Address != null)
+        {
+            dto.Address = new AddressDTO
+            {
+                Door = person.Address.Door,
+                Number = person.Address.Number,
+                Street = person.Address.Street,
+                TownName = person.Address.TownName,
+                PostalCode = person.Address.PostalCode,
+            };
+        }
+
+        if (!string.IsNullOrEmpty(person.PhoneNumber))
+            dto.PhoneNumber = person.PhoneNumber;
+
+        return dto;
     }
 }

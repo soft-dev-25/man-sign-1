@@ -72,14 +72,29 @@ public class PersonsController : ControllerBase, IPersonsController
     }
 
     [HttpGet("person")]
-    public Task<IActionResult> GetSinglePerson()
+    public async Task<IActionResult> GetSinglePerson()
     {
-        throw new NotImplementedException();
+        var person = await _personsService.GetPerson();
+
+        return Ok(person);
     }
 
     [HttpGet("persons")]
-    public Task<IActionResult> GetPersons(int? count)
+    public async Task<IActionResult> GetPersons(int? count)
     {
-        throw new NotImplementedException();
+        try
+        {
+            var persons = await _personsService.GetPersons(count);
+            return Ok(persons);
+        }
+        catch (ArgumentException e)
+        {
+            return BadRequest(e.Message);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return StatusCode(500, "An unexpected error occurred");
+        }
     }
 }

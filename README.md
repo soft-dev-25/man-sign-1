@@ -137,5 +137,78 @@ Run `npm run e2e-test`
 </tr>
 </td>
 </tr>
+
+<tr>
+<td> <code>/person</code> </td>
+<td> Combines all the information from the other endpoints to return a "complete" person </td>
+<td>
+
+```json
+{
+    "CPR": "0107832911",
+    "firstName": "Michelle W.",
+    "lastName": "Henriksen",
+    "gender": "female",
+    "birthDate": "1983-07-01",
+    "address": {
+        "street": "GYØVCoØMeceOjøtÆgvYrøQQDascNFCHArnSNrxub",
+        "number": "521",
+        "floor": 74,
+        "door": "tv",
+        "postal_code": "8670",
+        "town_name": "Låsby"
+    },
+    "phoneNumber": "58676658"
+}
+```
+
+</td>
+</tr>
+
+<tr>
+<td> <code>/persons?count=int</code> </td>
+<td> Returns multiple persons with all the data combined </td>
+<td>
+
+```json
+[
+  {
+      "CPR":"2501803713",
+      "firstName":"Rasmus B.",
+      "lastName":"Friis",
+      "gender":"male",
+      "birthDate":"1980-01-25",
+      "address": {
+          "street": "gIKoXUåJeVT",
+          "number": "249",
+          "floor": "4",
+          "door": "mf",
+          "postal_code": "9400",
+          "town_name": "Nørresundby"
+      },
+      "phoneNumber": "78678391"
+  },
+    {
+      "CPR": "0107832911",
+      "firstName": "Michelle W.",
+      "lastName": "Henriksen",
+      "gender": "female",
+      "birthDate": "1983-07-01",
+      "address": {
+          "street": "GYØVCoØMeceOjøtÆgvYrøQQDascNFCHArnSNrxub",
+          "number": "521",
+          "floor": 74,
+          "door": "tv",
+          "postal_code": "8670",
+          "town_name": "Låsby"
+      },
+      "phoneNumber": "58676658"
+  }
+]
+```
+
+</td>
+</tr>
+
 </table>
 
