@@ -84,7 +84,7 @@ public class PersonsController : ControllerBase, IPersonsController
     {
         try
         {
-            var persons = await _personsService.GetPerson();
+            var persons = await _personsService.GetPersons(count);
             return Ok(persons);
         }
         catch (ArgumentException e)
