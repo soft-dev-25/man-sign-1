@@ -143,9 +143,12 @@ public class PersonsService : IPersonsService
         }
 
         var persons = new List<PersonDTO>();
-        // For parallel creation, all promises are added upfront and then awaited
-        var tasks = Enumerable.Range(0, count.Value).Select(_ => GetPerson());
-        persons.AddRange(await Task.WhenAll(tasks));
+
+        for (var i = 0; i < count.Value; i++)
+        {
+            var person = await GetPerson();
+            persons.Add(person);
+        }
 
         return persons;
     }
