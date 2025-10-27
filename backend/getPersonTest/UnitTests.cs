@@ -78,9 +78,9 @@ public class GetPersonsTests
     [Theory]
     [InlineData(1)]
     [InlineData(2)]
-    [InlineData(500)]
-    [InlineData(999)]
-    [InlineData(1000)]
+    [InlineData(50)]
+    [InlineData(99)]
+    [InlineData(100)]
     public async Task GetPersons_ReturnsCorrectNumberOfPersons(int count)
     {
         var persons = await _service.GetPersons(count);
@@ -96,8 +96,8 @@ public class GetPersonsTests
     [InlineData(null)]
     [InlineData(-1)]
     [InlineData(0)]
-    [InlineData(1001)]
-    [InlineData(1002)]
+    [InlineData(101)]
+    [InlineData(102)]
     public async Task GetPersons_HandlesBadAmountsCorrectly(int? count)
     {
         await Assert.ThrowsAnyAsync<ArgumentException>(() => _service.GetPersons(count));
