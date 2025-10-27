@@ -159,6 +159,34 @@ public class E2eTest : PageTest
         await Expect(phoneNumberValue).ToHaveTextAsync(new Regex(@"^\d{8}$"));
     }
 
+    [Test]
+    public async Task GeneratePerson()
+    {
+        await Page.GotoAsync("/");
+
+        await Page.GetByRole(AriaRole.Radio, new() { Name = "person(s)" }).CheckAsync();
+        await Page.GetByRole(AriaRole.Button, new() { Name = "Generate" }).ClickAsync();
+        await Expect(Page.GetByRole(AriaRole.Article)).ToContainTextAsync("CPR:");
+        await Expect(Page.GetByRole(AriaRole.Article)).ToContainTextAsync("First name:");
+        await Expect(Page.GetByRole(AriaRole.Article)).ToContainTextAsync("Gender:");
+        await Expect(Page.GetByRole(AriaRole.Article)).ToContainTextAsync("Gender:");
+        await Expect(Page.GetByRole(AriaRole.Article)).ToContainTextAsync("Date of birth:");
+        await Expect(Page.GetByRole(AriaRole.Article)).ToContainTextAsync("Address:");
+        await Expect(Page.GetByRole(AriaRole.Article)).ToContainTextAsync("Phone number:");
+    }
+
+    [Test]
+    public async Task GeneratePersons()
+    {
+        await Page.GotoAsync("/");
+
+        await Page.GetByRole(AriaRole.Radio, new() { Name = "person(s)" }).CheckAsync();
+        await Page.Locator("#txtNumberPersons").ClickAsync();
+        await Page.Locator("#txtNumberPersons").FillAsync("3");
+        await Page.GetByRole(AriaRole.Button, new() { Name = "Generate" }).ClickAsync();
+        await Expect(Page.Locator("#output")).ToBeVisibleAsync();
+    }
+
     public override BrowserNewContextOptions ContextOptions()
     {
         Env.TraversePath().Load();
