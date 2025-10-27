@@ -74,7 +74,7 @@ document.querySelector('#frmGenerate').addEventListener('submit', (e) => {
     endpoint += 'person'
     const numPersons = parseInt(e.target.txtNumberPersons.value)
     if (numPersons > 1) {
-      endpoint += '?n=' + numPersons
+      endpoint += 's?count=' + numPersons
     }
   } else {
     endpoint += e.target.cmbPartialOptions.value
@@ -156,7 +156,7 @@ const handleError = () => {
   const output = document.querySelector('#output')
 
   output.innerHTML =
-        '<p>There was a problem communicating with the API</p>'
+    '<p>There was a problem communicating with the API</p>'
   output.classList.add('error')
 
   setTimeout(() => {
