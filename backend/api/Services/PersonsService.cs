@@ -133,7 +133,7 @@ public class PersonsService : IPersonsService
         {
             throw new ArgumentException("Count cannot be null");
         }
-        else if (count > 1000)
+        else if (count > 100)
         {
             throw new ArgumentOutOfRangeException(nameof(count), "Too many persons requested");
         }
