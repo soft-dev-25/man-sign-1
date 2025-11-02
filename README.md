@@ -1,5 +1,7 @@
 # man-sign-1
 
+I have deleted vite.config.js
+
 ## How to Start the Project
 
 Make sure to setup the `.env` in the root of the project.
